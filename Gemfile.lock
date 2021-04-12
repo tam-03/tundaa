@@ -89,6 +89,7 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.10.0)
     ffi (1.15.0)
+    foreman (0.87.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hpricot (0.8.6)
@@ -275,6 +276,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  foreman
   html2slim
   jbuilder (~> 2.7)
   listen (~> 3.3)

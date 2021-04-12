@@ -56,6 +56,7 @@ group :development do
   gem "rubocop-performance"
   gem "rubocop-rails"
   gem "slim_lint"
+  gem "foreman"
 end
 
 group :test do

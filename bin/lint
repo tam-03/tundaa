@@ -2,3 +2,4 @@
 
 bundle exec rubocop -a
 bundle exec slim-lint app/views -c .slim-lint.yml
+./node_modules/.bin/eslint --ext .js,.vue app/javascript

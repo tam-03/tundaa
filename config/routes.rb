@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "users/sessions"
   }
+
+  namespace "api", format: "json" do
+    resources :users, only: %i(index)
+  end
 end

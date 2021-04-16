@@ -1,16 +1,10 @@
 <template>
   <v-app>
-    <!-- <v-navigation-drawer app> -->
-    <!-- -->
-    <!-- </v-navigation-drawer> -->
-
     <app-header-bar />
-    <!-- アプリケーションのコンポーネントに基づいてコンテンツのサイズを決定 -->
     <v-main>
-      <!-- アプリケーションに適切なgutterを提供します -->
+      <!-- <h2>{{ String(currentUser.username) }}</h2> -->
       <router-view />
     </v-main>
-
     <v-footer app>
     <!-- -->
     </v-footer>
@@ -23,6 +17,20 @@ import AppHeaderBar from './app-header-bar'
 export default {
   components: {
     'app-header-bar': AppHeaderBar
+  },
+  props: {
+    currentUserId: {
+      type: String,
+      required: true
+    }
+  },
+  data: () => {
+    return {
+      currentUser: {}
+    }
+  },
+  created: function () {
+    console.log(this.currentUserId)
   }
 }
 </script>

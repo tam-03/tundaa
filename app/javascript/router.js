@@ -5,5 +5,6 @@ import Welcome from './top/welcome'
 Vue.use(VueRouter)
 
 export default new VueRouter({
+  mode: 'history',
   routes: [{ path: "/", component: Welcome}]
 })

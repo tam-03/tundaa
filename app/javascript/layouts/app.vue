@@ -3,7 +3,12 @@
     <app-header-bar />
     <v-main>
       <h2>{{ currentUser.signed_in }}</h2>
-      <router-view />
+      <template v-if="currentUser.signed_in">
+        <home />
+      </template>
+      <template v-else>
+        <welcome />
+      </template>
     </v-main>
     <v-footer app>
     <!-- -->
@@ -13,10 +18,14 @@
 
 <script>
 import AppHeaderBar from './app-header-bar'
+import Welcome from '../top/welcome'
+import Home from '../top/home'
 
 export default {
   components: {
-    'app-header-bar': AppHeaderBar
+    'app-header-bar': AppHeaderBar,
+    'welcome': Welcome,
+    'home': Home
   },
   props: {
     currentUserId: {

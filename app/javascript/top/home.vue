@@ -1,6 +1,6 @@
 <template>
   <v-container class="grey lighten-5">
-    <p>welcome</p>
+    <p>home</p>
     <v-row
       v-for="n in 2"
       :key="n"

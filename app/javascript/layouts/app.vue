@@ -2,7 +2,7 @@
   <v-app>
     <app-header-bar />
     <v-main>
-      <!-- <h2>{{ String(currentUser.username) }}</h2> -->
+      <h2>{{ currentUser.signed_in }}</h2>
       <router-view />
     </v-main>
     <v-footer app>
@@ -30,7 +30,34 @@ export default {
     }
   },
   created: function () {
-    console.log(this.currentUserId)
+    this.getCurrentUser()
+  },
+  methods: {
+    token() {
+      const meta = document.querySelector('meta[name="csrf-token"]')
+      return meta ? meta.getAttribute('content') : ''
+    },
+    getCurrentUser() {
+      fetch(`/api/users/${this.currentUserId}.json`, {
+      method: "GET",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      },
+      credentials: "same-origin",
+      redirect: "manual"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        for (var key in json) {
+          this.$set(this.currentUser, key, json[key]);
+        }
+      })
+      .catch(error => {
+        console.warn("Failed to parsing", error);
+      });
+    }
   }
 }
 </script>

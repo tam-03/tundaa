@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   }
 
   namespace "api", format: "json" do
-    resources :users, only: %i(index)
+    resources :users, only: %i(index show)
   end
 end

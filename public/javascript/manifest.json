@@ -1,0 +1,29 @@
+{
+  "application.js": "/javascript/application-3ea260a4b505f33b85ff.js",
+  "application.js.map": "/javascript/js/application-6e04a87e44db60a8087a.hot-update.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/javascript/application-3ea260a4b505f33b85ff.js"
+      ],
+      "js.map": [
+        "/javascript/application-3ea260a4b505f33b85ff.js.map",
+        "/javascript/js/application-6e04a87e44db60a8087a.hot-update.js.map"
+      ]
+    },
+    "vuetify": {
+      "js": [
+        "/javascript/vuetify-3ea260a4b505f33b85ff.js"
+      ],
+      "js.map": [
+        "/javascript/vuetify-3ea260a4b505f33b85ff.js.map"
+      ]
+    }
+  },
+  "media/fonts/materialdesignicons-webfont.eot?v=5.9.55": "/javascript/media/fonts/materialdesignicons-webfont-53f53f50.eot",
+  "media/fonts/materialdesignicons-webfont.ttf?v=5.9.55": "/javascript/media/fonts/materialdesignicons-webfont-0e4e0b3d.ttf",
+  "media/fonts/materialdesignicons-webfont.woff2?v=5.9.55": "/javascript/media/fonts/materialdesignicons-webfont-e9db4005.woff2",
+  "media/fonts/materialdesignicons-webfont.woff?v=5.9.55": "/javascript/media/fonts/materialdesignicons-webfont-d8e8e0f7.woff",
+  "vuetify.js": "/javascript/vuetify-3ea260a4b505f33b85ff.js",
+  "vuetify.js.map": "/javascript/vuetify-3ea260a4b505f33b85ff.js.map"
+}

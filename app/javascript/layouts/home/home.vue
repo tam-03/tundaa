@@ -2,13 +2,8 @@
   <v-app>
     <app-header-bar />
     <v-main>
+      <h2>home</h2>
       <h2>{{ currentUser.signed_in }}</h2>
-      <template v-if="currentUser.signed_in">
-        <home />
-      </template>
-      <template v-else>
-        <welcome />
-      </template>
     </v-main>
     <v-footer app>
     <!-- -->
@@ -17,15 +12,11 @@
 </template>
 
 <script>
-import AppHeaderBar from './app-header-bar'
-import Welcome from '../top/welcome'
-import Home from '../top/home'
+import AppHeaderBar from './homeHeader.vue'
 
 export default {
   components: {
-    'app-header-bar': AppHeaderBar,
-    'welcome': Welcome,
-    'home': Home
+    'app-header-bar': AppHeaderBar
   },
   props: {
     currentUserId: {

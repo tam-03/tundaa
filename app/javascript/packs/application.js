@@ -12,5 +12,6 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-require("../layouts/app.js")
+require("../layouts/home/home.js")
+require("../layouts/welcome/welcome.js")
 require("../router.js")

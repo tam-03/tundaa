@@ -8,13 +8,11 @@
 
     <v-spacer />
 
-    <v-btn>
-      今すぐ始める
-    </v-btn>
-
-    <v-btn>
-      ログイン
-    </v-btn>
+    <a href="#">
+      <v-btn>
+        ログアウト
+      </v-btn>
+    </a>
   </v-app-bar>
 </template>
 

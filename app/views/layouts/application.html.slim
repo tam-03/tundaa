@@ -9,7 +9,10 @@ html
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_pack_tag "application", "data-turbolinks-track": "reload"
   body
-    #js-app(data-current-user-id="#{current_user.id}")
+    - if user_signed_in?
+      #js-home(data-current-user-id="#{current_user.id}")
+    - else
+      #js-welcome
     p.notice
       = notice
     p.alert

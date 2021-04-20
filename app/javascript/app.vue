@@ -5,6 +5,7 @@
       <h2>app.vue</h2>
       <Home />
       <Welcome />
+      <router-view />
     </v-main>
     <v-footer app>
     <!-- -->

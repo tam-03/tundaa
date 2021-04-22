@@ -25,25 +25,25 @@
 </template>
 
 <script>
-import axios from 'axios'
 
   export default {
   data () {
     return {
       email: '',
-      passwaord:'',
+      password:'',
       password_confirmation: ''
     }
   },
   methods: {
     register() {
-      axios.post('/api/auth', {
+      this.$store.dispatch('register', {
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation
-      }).then(response => {
-        console.log(response)
       })
+      this.email = ''
+      this.password = ''
+      this.password_confirmation = ''
     }
   }
   }

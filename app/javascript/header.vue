@@ -8,11 +8,11 @@
     <v-toolbar-title>Tundaa</v-toolbar-title>
 
     <v-spacer />
-    <a href="#">
+    <router-link to="/">
       <v-btn>
         今すぐ始める
       </v-btn>
-    </a>
+    </router-link>
     <router-link to="/login">
       <v-btn>
         ログイン
@@ -23,11 +23,21 @@
         アカウント登録
       </v-btn>
     </router-link>
+    <router-link to="/">
+      <v-btn>
+        ログアウト
+      </v-btn>
+    </router-link>
   </v-app-bar>
 </template>
 
 <script>
 
 export default {
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.token !== null
+    }
+  }
 }
 </script>

@@ -21,23 +21,22 @@
 </template>
 
 <script>
-import axios from 'axios'
 
   export default {
   data () {
     return {
       email: '',
-      passwaord:''
+      password:''
     }
   },
   methods: {
     login() {
-      axios.post('/api/auth/sign_in', {
+      this.$store.dispatch('login', {
         email: this.email,
-        password: this.password,
-      }).then(response => {
-        console.log(response)
+        password: this.password
       })
+      this.email = ''
+      this.password = ''
     }
   }
   }

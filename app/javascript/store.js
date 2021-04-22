@@ -7,7 +7,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null
+    token: null,
+    uid: null,
+    client: null
   },
   getters: {
     token: state => state.token
@@ -15,6 +17,12 @@ export default new Vuex.Store({
   mutations: {
     updateToken(state, token) {
       state.token = token
+    },
+    updateUid(state, uid) {
+      state.token = uid
+    },
+    updateclient(state, client) {
+      state.token = client
     }
   },
   actions: {
@@ -24,6 +32,8 @@ export default new Vuex.Store({
         password: authData.password,
       }).then(response => {
         commit('updateToken', response.headers['access-token'])
+        commit('updateUid', response.headers['uid'])
+        commit('updateclient', response.headers['client'])
         router.push('/')
       })
     },
@@ -35,6 +45,8 @@ export default new Vuex.Store({
       }).then(response => {
         console.log(response)
         commit('updateToken', response.headers['access-token'])
+        commit('updateUid', response.headers['uid'])
+        commit('updateclient', response.headers['client'])
         router.push('/')
       })
     }

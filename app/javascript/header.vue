@@ -26,21 +26,41 @@
       </router-link>
     </template>
     <template v-else>
-      <router-link to="/">
-        <v-btn>
-          ログアウト
-        </v-btn>
-      </router-link>
+      <v-btn @click="logout">
+        ログアウト
+      </v-btn>
+      <p>{{ uid }}</p>
     </template>
   </v-app-bar>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.token !== null
+    },
+    uid() {
+      return this.$store.getters.uid
+    },
+    token() {
+      return this.$store.getters.token
+    },
+    client() {
+      return this.$store.getters.client
+    },
+  },
+  methods: {
+    logout() {
+      axios.delete('api/auth/sign_out', {
+        headers: {
+          uid: this.uid,
+          token: this.token,
+          client: this.client
+        }
+      })
     }
   }
 }

@@ -3,6 +3,7 @@
     color="deep-purple accent-4"
     dense
     dark
+    app
   >
     <v-toolbar-title>Tundaa</v-toolbar-title>
 

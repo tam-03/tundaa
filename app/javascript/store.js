@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from 'router'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     token: null
+  },
+  getters: {
+    token: state => state.token
   },
   mutations: {
     updateToken(state, token) {
@@ -20,6 +24,7 @@ export default new Vuex.Store({
         password: authData.password,
       }).then(response => {
         commit('updateToken', response.headers['access-token'])
+        router.push('/')
       })
     },
     register({ commit }, authData) {
@@ -30,6 +35,7 @@ export default new Vuex.Store({
       }).then(response => {
         console.log(response)
         commit('updateToken', response.headers['access-token'])
+        router.push('/')
       })
     }
     }

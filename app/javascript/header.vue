@@ -8,26 +8,30 @@
     <v-toolbar-title>Tundaa</v-toolbar-title>
 
     <v-spacer />
-    <router-link to="/">
-      <v-btn>
-        今すぐ始める
-      </v-btn>
-    </router-link>
-    <router-link to="/login">
-      <v-btn>
-        ログイン
-      </v-btn>
-    </router-link>
-    <router-link to="/sign_up">
-      <v-btn>
-        アカウント登録
-      </v-btn>
-    </router-link>
-    <router-link to="/">
-      <v-btn>
-        ログアウト
-      </v-btn>
-    </router-link>
+    <template v-if="isAuthenticated">
+      <router-link to="/">
+        <v-btn>
+          今すぐ始める
+        </v-btn>
+      </router-link>
+      <router-link to="/login">
+        <v-btn>
+          ログイン
+        </v-btn>
+      </router-link>
+      <router-link to="/sign_up">
+        <v-btn>
+          アカウント登録
+        </v-btn>
+      </router-link>
+    </template>
+    <template v-else>
+      <router-link to="/">
+        <v-btn>
+          ログアウト
+        </v-btn>
+      </router-link>
+    </template>
   </v-app-bar>
 </template>
 

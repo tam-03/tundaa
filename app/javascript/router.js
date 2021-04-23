@@ -16,7 +16,7 @@ export default new VueRouter({
         if (store.getters.token) {
           next('/')
         } else {
-          next('')
+          next()
         }
       }
     },
@@ -27,7 +27,7 @@ export default new VueRouter({
         if (store.getters.token) {
           next('/')
         } else {
-          next('')
+          next()
         }
       }
     }

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Welcome from './Welcome'
+import Home from './Home'
 import Login from './login'
 import SignUp from './signup'
 import store from './store'
@@ -9,6 +11,21 @@ Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path: "/",
+      component: Welcome,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next('/home')
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: "/home",
+      component: Home
+    },
     {
       path: "/login",
       component: Login,

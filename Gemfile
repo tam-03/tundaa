@@ -32,6 +32,9 @@ gem "bootsnap", ">= 1.4.4", require: false
 
 # not default
 gem "devise"
+gem "devise_token_auth"
+gem "omniauth", "1.9.1"
+gem "rack-cors"
 gem "slim-rails"
 gem "html2slim"
 
@@ -56,6 +59,7 @@ group :development do
   gem "rubocop-performance"
   gem "rubocop-rails"
   gem "slim_lint"
+  gem "foreman"
 end
 
 group :test do

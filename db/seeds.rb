@@ -8,6 +8,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 3.times do |n|
+  User.create!(
+    email: "test#{n + 1}@example.com",
+    password: "testtest"
+  )
+end
+
+3.times do |n|
   Template.create!(
     title: "テンプレートタイトル#{n + 1}",
     body: "テンプレートの内容 #{n + 1}"
@@ -17,6 +24,7 @@ end
 3.times do |n|
   Sample.create!(
     title: "サンプルタイトル#{n + 1}",
-    body: "サンプルの内容 #{n + 1}"
+    body: "サンプルの内容 #{n + 1}",
+    template_id: Template.find(1).id
   )
 end

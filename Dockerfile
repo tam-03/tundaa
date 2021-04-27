@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     nodejs \
     postgresql-client \
-    yarn
-WORKDIR /tundaa
+    yarn \
+    vim
+  WORKDIR /tundaa
 COPY Gemfile Gemfile.lock /tundaa/
 RUN bundle install

@@ -1,14 +1,38 @@
 <template>
   <div>
-    <textarea
-      v-model="content"
-      cols="30"
-      rows="10"
-    />
-    <markdown-it-vue
-      class="md-body"
-      :content="content"
-    />
+    <v-container
+      fluid
+      class="grey lighten-5"
+    >
+      <v-row
+        no-gutters
+      >
+        <v-col>
+          <v-card
+            class="pa-2"
+            outlined
+            tile
+          >
+            <v-textarea
+              v-model="content"
+              name="input-7-4"
+            />
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card
+            class="pa-2"
+            outlined
+            tile
+          >
+            <markdown-it-vue
+              class="md-body"
+              :content="content"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 

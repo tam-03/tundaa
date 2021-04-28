@@ -21,7 +21,7 @@
           <v-card-title>{{ card.title }}</v-card-title>
           <v-spacer />
           <v-card-actions>
-            <router-link to="/">
+            <router-link to="/questions/new">
               <v-btn
                 text
                 color="teal accent-4"

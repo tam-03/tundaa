@@ -5,6 +5,5 @@ class Question < ApplicationRecord
   validates :body, presence: true
   validates :user_id, presence: true
 
-  belongs_to :user_id
-  belongs_to :template_id
+  belongs_to :user
 end

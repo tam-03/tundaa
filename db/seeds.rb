@@ -15,6 +15,14 @@
 end
 
 3.times do |n|
+  Question.create!(
+    title: "タイトル#{n + 1}",
+    body: "内容 #{n + 1}",
+    user_id: 1
+  )
+end
+
+3.times do |n|
   Template.create!(
     title: "テンプレートタイトル#{n + 1}",
     body: "テンプレートの内容 #{n + 1}"

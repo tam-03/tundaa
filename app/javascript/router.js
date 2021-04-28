@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store'
 import Welcome from './Welcome'
 import Home from './Home'
 import Login from './login'
 import SignUp from './signup'
-import store from './store'
+import NewQuestion from './NewQuestion'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,10 @@ export default new VueRouter({
           next()
         }
       }
+    },
+    {
+      path: "/questions/new",
+      component: NewQuestion
     }
   ]
 })

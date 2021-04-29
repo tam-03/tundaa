@@ -9,16 +9,12 @@ export default new Vuex.Store({
   state: {
     token: null,
     uid: null,
-    client: null,
-    title: '',
-    body: ''
+    client: null
   },
   getters: {
     token: state => state.token,
     uid: state => state.uid,
-    client: state => state.client,
-    title: state => state.title,
-    body: state => state.body
+    client: state => state.client
   },
   mutations: {
     updateToken(state, token) {
@@ -29,12 +25,6 @@ export default new Vuex.Store({
     },
     updateclient(state, client) {
       state.client = client
-    },
-    updateTtile(state, title) {
-      state.title = title
-    },
-    updateBody(state, body) {
-      state.body = body
     }
   },
   actions: {
@@ -77,7 +67,7 @@ export default new Vuex.Store({
         router.replace('/login')
       })
     },
-    save({ commit, state }, questionData) {
+    save({ state }, questionData) {
       axios.post('/api/questions', {
         title: questionData.title,
         body: questionData.content
@@ -87,10 +77,8 @@ export default new Vuex.Store({
           uid: state.uid,
           client: state.client
         }
-      }).then(response => {
-        console.log(response)
-        commit('updateTitle', '')
-        commit('updateBody', '')
+      }).then(() => {
+        router.push('/')
       })
     }
   }

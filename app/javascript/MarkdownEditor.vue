@@ -33,6 +33,9 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-btn @click="save">
+      保存する
+    </v-btn>
   </div>
 </template>
 
@@ -46,7 +49,17 @@ export default {
   },
   data() {
     return {
+      title: 'sample',
       content: '# your markdown content'
+    }
+  },
+  methods: {
+    save() {
+      this.$store.dispatch('save', {
+        title: this.title,
+        content: this.content
+      })
+      this.content = ''
     }
   }
 }

@@ -32,7 +32,7 @@ export default new VueRouter({
       component: Login,
       beforeEnter(to, from, next) {
         if (store.getters.token) {
-          next('/')
+          next('/home')
         } else {
           next()
         }

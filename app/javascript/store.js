@@ -9,12 +9,16 @@ export default new Vuex.Store({
   state: {
     token: null,
     uid: null,
-    client: null
+    client: null,
+    title: '',
+    body: ''
   },
   getters: {
     token: state => state.token,
     uid: state => state.uid,
     client: state => state.client,
+    title: state => state.title,
+    body: state => state.body
   },
   mutations: {
     updateToken(state, token) {
@@ -25,6 +29,12 @@ export default new Vuex.Store({
     },
     updateclient(state, client) {
       state.client = client
+    },
+    updateTtile(state, title) {
+      state.title = title
+    },
+    updateBody(state, body) {
+      state.body = body
     }
   },
   actions: {
@@ -33,11 +43,12 @@ export default new Vuex.Store({
         email: authData.email,
         password: authData.password,
       }).then(response => {
-        console.log(response)
         commit('updateToken', response.headers['access-token'])
         commit('updateUid', response.headers['uid'])
         commit('updateclient', response.headers['client'])
-        router.push('/')
+        router.push('/').catch(err => {
+          console.info(err)
+        })
       })
     },
     register({ commit }, authData) {
@@ -64,6 +75,22 @@ export default new Vuex.Store({
         commit('updateUid', null)
         commit('updateclient', null)
         router.replace('/login')
+      })
+    },
+    save({ commit, state }, questionData) {
+      axios.post('/api/questions', {
+        title: questionData.title,
+        body: questionData.content
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        }
+      }).then(response => {
+        console.log(response)
+        commit('updateTitle', '')
+        commit('updateBody', '')
       })
     }
   }

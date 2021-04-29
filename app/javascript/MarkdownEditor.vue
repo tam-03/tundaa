@@ -4,6 +4,10 @@
       fluid
       class="grey lighten-5"
     >
+      <input
+        v-model="title"
+        type="text"
+      >
       <v-row
         no-gutters
       >
@@ -49,8 +53,8 @@ export default {
   },
   data() {
     return {
-      title: 'sample',
-      content: '# your markdown content'
+      title: '',
+      content: ''
     }
   },
   methods: {
@@ -59,6 +63,7 @@ export default {
         title: this.title,
         content: this.content
       })
+      this.title = ''
       this.content = ''
     }
   }

@@ -6,6 +6,7 @@ import Home from './Home'
 import Login from './login'
 import SignUp from './signup'
 import NewQuestion from './NewQuestion'
+import Questions from './Questions'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,17 @@ export default new VueRouter({
     {
       path: "/questions/new",
       component: NewQuestion
+    },
+    {
+      path: "/questions",
+      component: Questions,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })

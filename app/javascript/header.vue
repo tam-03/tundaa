@@ -26,6 +26,11 @@
       </router-link>
     </template>
     <template v-else>
+      <router-link to="/questions">
+        <v-btn>
+          質問一覧
+        </v-btn>
+      </router-link>
       <v-btn @click="logout">
         ログアウト
       </v-btn>

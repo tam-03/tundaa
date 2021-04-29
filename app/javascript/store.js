@@ -9,12 +9,14 @@ export default new Vuex.Store({
   state: {
     token: null,
     uid: null,
-    client: null
+    client: null,
+    questions: null
   },
   getters: {
     token: state => state.token,
     uid: state => state.uid,
-    client: state => state.client
+    client: state => state.client,
+    questions: state => state.questions
   },
   mutations: {
     updateToken(state, token) {
@@ -25,6 +27,9 @@ export default new Vuex.Store({
     },
     updateclient(state, client) {
       state.client = client
+    },
+    updateQuestions(state, questions) {
+      state.questions = questions
     }
   },
   actions: {
@@ -79,6 +84,17 @@ export default new Vuex.Store({
         }
       }).then(() => {
         router.push('/')
+      })
+    },
+    getQuestions({ commit, state }) {
+      axios.get('api/questions.json', {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        }
+      }).then(response => {
+        commit('updateQuestions', response.data.questions)
       })
     }
   }

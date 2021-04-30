@@ -14,6 +14,12 @@
         編集
       </v-btn>
     </router-link>
+    <v-btn
+      class="mr-4"
+      @click="deleteQuestion"
+    >
+      削除
+    </v-btn>
   </div>
 </template>
 
@@ -37,6 +43,11 @@ export default {
      getQuestion() {
        this.$store.dispatch('getQuestion', {
          questionId: this.$route.params.id
+       })
+     },
+     deleteQuestion() {
+       this.$store.dispatch('deleteQuestion', {
+         id: this.$route.params.id
        })
      }
    }

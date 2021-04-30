@@ -77,7 +77,7 @@ export default new Vuex.Store({
         router.replace('/login')
       })
     },
-    save({ state }, questionData) {
+    saveQuestion({ state }, questionData) {
       axios.post('/api/questions', {
         title: questionData.title,
         body: questionData.content

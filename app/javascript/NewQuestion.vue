@@ -38,7 +38,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-btn @click="save">
+    <v-btn @click="saveQuestion">
       保存する
     </v-btn>
   </div>
@@ -59,8 +59,8 @@ export default {
     }
   },
   methods: {
-    save() {
-      this.$store.dispatch('save', {
+    saveQuestion() {
+      this.$store.dispatch('saveQuestion', {
         title: this.title,
         content: this.content
       })

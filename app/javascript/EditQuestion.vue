@@ -38,7 +38,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-btn @click="edit">
+    <v-btn @click="editQuestion">
       編集を保存
     </v-btn>
   </div>
@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    edit() {
+    editQuestion() {
       this.$store.dispatch('editQuestion', {
         title: this.title,
         body: this.content,

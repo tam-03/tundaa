@@ -5,7 +5,9 @@
       v-for="question in questions"
       :key="question.id"
     >
-      <div>{{ question.title }}</div>
+      <router-link :to="question.url">
+        {{ question.title }}
+      </router-link>
     </div>
   </div>
 </template>

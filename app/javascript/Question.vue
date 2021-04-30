@@ -7,6 +7,13 @@
       class="md-body"
       :content="question.body"
     />
+    <router-link :to="question.editUrl">
+      <v-btn
+        class="mr-4"
+      >
+        編集
+      </v-btn>
+    </router-link>
   </div>
 </template>
 

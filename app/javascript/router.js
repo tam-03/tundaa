@@ -8,6 +8,7 @@ import SignUp from './signup'
 import NewQuestion from './NewQuestion'
 import Questions from './Questions'
 import Question from './Question'
+import EditQuestion from './EditQuestion'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,17 @@ export default new VueRouter({
     {
       path: "/questions/:id",
       component: Question,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/questions/:id/edit",
+      component: EditQuestion,
       beforeEnter(to, from, next) {
         if (store.getters.token) {
           next()

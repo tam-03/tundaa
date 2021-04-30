@@ -113,6 +113,21 @@ export default new Vuex.Store({
       }).then(response => {
         commit('updateQuestion', response.data)
       })
+    },
+    editQuestion({ state }, editQuestionData) {
+      axios.patch(`${editQuestionData.id}.json`, {
+        title: editQuestionData.title,
+        body: editQuestionData.body
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/questions/'
+      }).then(() => {
+        router.push('/questions')
+      })
     }
   }
 })

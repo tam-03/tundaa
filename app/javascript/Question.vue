@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>個別</h1>
-    <p>QuestionID: {{ $route.params.id }}</p>
     <p>{{ question.title }}</p>
     <markdown-it-vue
       class="md-body"

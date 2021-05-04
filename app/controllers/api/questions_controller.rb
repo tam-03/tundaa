@@ -6,7 +6,8 @@ class API::QuestionsController < API::BaseController
   protect_from_forgery except: %i[create update]
 
   def index
-    @questions = Question.all
+    @questions = Question.where(user_id: current_api_user.id)
+                         .order(created_at: :desc)
   end
 
   def create

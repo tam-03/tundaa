@@ -2,149 +2,144 @@
 
 require "rails_helper"
 
-RSpec.describe "Question_API", type: :request do
+RSpec.describe "Question API", type: :request do
   describe "GET api/questions" do
-    let(:user) { create(:user) }
+    let(:alice) { create(:user, name: "Alice") }
+    let(:bob) { create(:user, name: "bob") }
     before do
-      create_list(:question, 10, user_id: user.id)
+      create(:question, title: "Markdownが分からない", user: alice)
+      create(:question, title: "Linuxが分からない", user: alice)
+      create(:question, title: "Railsが分からない", user: alice)
+      create(:question, title: "Javascriptが分からない", user: bob)
     end
     context "認証無しのユーザーの場合" do
-      subject { get api_questions_path, as: :json }
-      it "401を返す" do
-        subject
+      it "エラーメッセージを返す" do
+        get api_questions_path, as: :json
         expect(response).to have_http_status(401)
-      end
-      it "質問の一覧を取得出来ない" do
-        subject
-        res = JSON.parse(response.body).keys
-        expect(res[0]).to eq "errors"
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
-      let(:auth_tokens) { user.create_new_auth_token }
-      subject { get api_questions_path, headers: auth_tokens, as: :json }
-      it "200を返す" do
-        subject
-        expect(response).to have_http_status(200)
-      end
+      let(:auth_tokens) { alice.create_new_auth_token }
       it "質問の一覧を取得出来る" do
-        subject
+        get api_questions_path, headers: auth_tokens, as: :json
+        expect(response).to have_http_status(200)
+
         res = JSON.parse(response.body)
-        expect(res["questions"].count).to eq 10
+        expect(res["questions"].count).to eq 3
+
+        question = res["questions"][0]
+        expect(question["title"]).to eq "Railsが分からない"
+        expect(question["user_id"]).to eq alice.id
+
+        question = res["questions"][1]
+        expect(question["title"]).to eq "Linuxが分からない"
+        expect(question["user_id"]).to eq alice.id
+
+        question = res["questions"][2]
+        expect(question["title"]).to eq "Markdownが分からない"
+        expect(question["user_id"]).to eq alice.id
       end
     end
   end
 
   describe "POST api/questions" do
-    let(:user) { create(:user) }
-    let(:question) { build(:question) }
+    let(:alice) { create(:user, name: "Alice") }
+    let(:question) { build(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice) }
     context "認証無しのユーザーの場合" do
-      subject { post api_questions_path, params: question, as: :json }
-      it "401を返す" do
-        subject
+      it "エラーメッセージを返す" do
+        post api_questions_path, params: question, as: :json
         expect(response).to have_http_status(401)
-      end
-      it "質問を新規作成出来ない" do
-        subject
-        res = JSON.parse(response.body).keys
-        expect(res[0]).to eq "errors"
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
-      let(:auth_tokens) { user.create_new_auth_token }
-      subject { post api_questions_path, params: question, headers: auth_tokens, as: :json }
-      it "201を返す" do
-        subject
-        expect(response).to have_http_status(201)
-      end
+      let(:auth_tokens) { alice.create_new_auth_token }
       it "質問を新規作成出来る" do
-        expect { subject }.to change { Question.count }.by(1)
+        expect { post api_questions_path, params: question, headers: auth_tokens, as: :json }.to change { Question.count }.by(1)
+        expect(response).to have_http_status(201)
+
+        new_question = Question.first
+        expect(new_question.title).to eq "Markdownが分からない"
+        expect(new_question.body).to eq "## linkが分からない"
+        expect(new_question.user_id).to eq alice.id
       end
     end
   end
 
   describe "GET api/questions/:id" do
-    let(:user) { create(:user) }
-    let(:question) { create(:question, user_id: user.id) }
+    let(:alice) { create(:user, name: "Alice") }
+    let(:question) { create(:question, title: "Linuxが分からない", user: alice) }
     context "認証無しのユーザーの場合" do
-      subject { get api_question_path(question.id), as: :json }
-      it "401を返す" do
-        subject
+      it "エラーメッセージを返す" do
+        get api_question_path(question.id), as: :json
         expect(response).to have_http_status(401)
-      end
-      it "質問を取得できない" do
-        subject
-        res = JSON.parse(response.body).keys
-        expect(res[0]).to eq "errors"
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
-      let(:auth_tokens) { user.create_new_auth_token }
-      subject { get api_question_path(question.id), headers: auth_tokens, as: :json }
-      it "200を返す" do
-        subject
-        expect(response).to have_http_status(200)
-      end
+      let(:auth_tokens) { alice.create_new_auth_token }
       it "質問を取得出来る" do
-        subject
+        get api_question_path(question.id), headers: auth_tokens, as: :json
+        expect(response).to have_http_status(200)
+
         res = JSON.parse(response.body)
-        expect(res["id"]).to eq question.id
+        expect(res["title"]).to eq "Linuxが分からない"
       end
     end
   end
 
   describe "PATCH api/questions/:id" do
-    let(:user) { create(:user) }
-    let(:question) { create(:question, user_id: user.id) }
+    let(:alice) { create(:user, name: "Alice") }
+    let(:question) { create(:question, title: "Railsが分からない", body: "## 条件分岐が分からない", user: alice) }
     context "認証無しのユーザーの場合" do
-      subject { patch api_question_path(question.id), params: { title: "テスト1を編集", body: "編集" }, as: :json }
-      it "401を返す" do
-        subject
+      it "エラーメッセージを返す" do
+        patch api_question_path(question.id), params: { title: "Railsのif文が分からない", body: "## elseの意味とは?" }, as: :json
         expect(response).to have_http_status(401)
-      end
-      it "質問を編集できない" do
-        subject
-        res = JSON.parse(response.body).keys
-        expect(res[0]).to eq "errors"
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
-      let(:auth_tokens) { user.create_new_auth_token }
-      subject { patch api_question_path(question.id), params: { title: "テストの編集" }, headers: auth_tokens, as: :json }
-      it "200を返す" do
-        subject
-        expect(response).to have_http_status(200)
-      end
+      let(:auth_tokens) { alice.create_new_auth_token }
       it "質問の編集が出来る" do
-        expect { subject }.to change { Question.find(question.id).title }.from(question.title).to("テストの編集")
+        patch api_question_path(question.id), params: { title: "Railsのif文が分からない", body: "## elseの意味とは?" }, headers: auth_tokens, as: :json
+        expect(response).to have_http_status(200)
+
+        edit_question = Question.find(question.id)
+        expect(edit_question.title).to eq "Railsのif文が分からない"
+        expect(edit_question.body).to eq "## elseの意味とは?"
+        expect(edit_question.user_id).to eq alice.id
       end
     end
   end
 
   describe "DELETE api/questions/:id" do
-    let(:user) { create(:user) }
-    let(:question) { create(:question, user_id: user.id) }
+    let(:alice) { create(:user, name: "Alice") }
+    let(:delete_question) { create(:question, title: "Javascriptが分からない", user: alice) }
+    before do
+      create(:question, title: "Markdownが分からない", user: alice)
+      create(:question, title: "Linuxが分からない", user: alice)
+      create(:question, title: "Railsが分からない", user: alice)
+    end
+    let(:question) { create(:question, title: "Javascriptが分からない", user: alice) }
     context "認証無しのユーザーの場合" do
-      subject { delete api_question_path(question.id), as: :json }
-      it "401を返す" do
-        subject
-        expect(response).to have_http_status(401)
-      end
       it "質問を削除出来ない" do
-        subject
-        res = JSON.parse(response.body).keys
-        expect(res[0]).to eq "errors"
+        delete api_question_path(delete_question.id), as: :json
+        expect(response).to have_http_status(401)
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
-      let(:auth_tokens) { user.create_new_auth_token }
-      subject { delete api_question_path(question.id), headers: auth_tokens, as: :json }
-      it "204を返す" do
-        subject
-        expect(response.status).to eq 204
-      end
+      let(:auth_tokens) { alice.create_new_auth_token }
       it "質問を削除出来る" do
-        expect { subject }.to change { Question.count }.by(0)
+        delete api_question_path(delete_question.id), headers: auth_tokens, as: :json
+        expect(response.status).to eq 204
+        expect(Question.count).to eq 3
       end
     end
   end

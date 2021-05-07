@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   root to: "top#index"
   get "/home", to: "top#index"
+  get "/sign_up", to: "top#index"
   get "/login", to: "top#index"
   get "/questions/new", to: "top#index"
   get "/questions", to: "top#index"

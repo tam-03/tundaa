@@ -17,7 +17,7 @@ RSpec.describe "Question API", type: :request do
         get api_questions_path, as: :json
         expect(response).to have_http_status(401)
         json = JSON.parse(response.body)
-        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
@@ -52,7 +52,7 @@ RSpec.describe "Question API", type: :request do
         post api_questions_path, params: question, as: :json
         expect(response).to have_http_status(401)
         json = JSON.parse(response.body)
-        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
@@ -77,7 +77,7 @@ RSpec.describe "Question API", type: :request do
         get api_question_path(question.id), as: :json
         expect(response).to have_http_status(401)
         json = JSON.parse(response.body)
-        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
@@ -100,7 +100,7 @@ RSpec.describe "Question API", type: :request do
         patch api_question_path(question.id), params: { title: "Railsのif文が分からない", body: "## elseの意味とは?" }, as: :json
         expect(response).to have_http_status(401)
         json = JSON.parse(response.body)
-        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do
@@ -131,7 +131,7 @@ RSpec.describe "Question API", type: :request do
         delete api_question_path(delete_question.id), as: :json
         expect(response).to have_http_status(401)
         json = JSON.parse(response.body)
-        expect(json).to eq "errors"=>["You need to sign in or sign up before continuing."]
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
       end
     end
     context "認証有りのユーザーの場合" do

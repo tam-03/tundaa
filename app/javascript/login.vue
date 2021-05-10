@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>ログイン</h2>
-    <form>
+    <form id="login">
       <v-text-field
         v-model="email"
         label="email"

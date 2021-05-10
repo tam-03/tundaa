@@ -92,6 +92,11 @@ GEM
       rails (>= 4.2.0, < 6.2)
     diff-lcs (1.4.4)
     erubi (1.10.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.15.0)
     foreman (0.87.2)
     globalid (0.4.2)
@@ -287,6 +292,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   devise_token_auth
+  factory_bot_rails
   foreman
   html2slim
   jbuilder (~> 2.7)

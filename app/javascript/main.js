@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const selector = '#app'
   const app = document.querySelector(selector)
   if (app) {
+    store.dispatch('validateToken')
     new Vue({
       vuetify,
       router,

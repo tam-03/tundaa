@@ -25,5 +25,13 @@
 
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      next("/home")
+    } else {
+      next()
+    }
+  }
 }
 </script>

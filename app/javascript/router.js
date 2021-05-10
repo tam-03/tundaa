@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store'
 import Welcome from './Welcome'
 import Home from './Home'
 import Login from './login'
 import SignUp from './signup'
-import store from './store'
+import NewQuestion from './NewQuestion'
+import Questions from './Questions'
+import Question from './Question'
+import EditQuestion from './EditQuestion'
 
 Vue.use(VueRouter)
 
@@ -31,7 +35,7 @@ export default new VueRouter({
       component: Login,
       beforeEnter(to, from, next) {
         if (store.getters.token) {
-          next('/')
+          next('/home')
         } else {
           next()
         }
@@ -45,6 +49,43 @@ export default new VueRouter({
           next('/')
         } else {
           next()
+        }
+      }
+    },
+    {
+      path: "/questions/new",
+      component: NewQuestion
+    },
+    {
+      path: "/questions",
+      component: Questions,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/questions/:id",
+      component: Question,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/questions/:id/edit",
+      component: EditQuestion,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
         }
       }
     }

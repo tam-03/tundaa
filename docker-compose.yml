@@ -12,10 +12,17 @@ services:
       - '.:/tundaa'
     environment:
       - 'DATABASE_PASSWORD=postgres'
+      - "SELENIUM_DRIVER_URL=http://chrome:4444/wd/hub"
     tty: true
     stdin_open: true
     depends_on:
       - db
+      - chrome
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - '4444:4444'
+      - '5901:5900'
   db:
     image: postgres
     volumes:

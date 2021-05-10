@@ -38,6 +38,24 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    validateToken({ commit }) {
+      const token = localStorage.getItem('token')
+      const uid = localStorage.getItem('uid')
+      const client = localStorage.getItem('client')
+      axios.get('/api/auth/validate_token', {
+        headers: {
+          'access-token': token,
+          uid: uid,
+          client: client
+        }
+      }).then((response) => {
+        const success = response.data.success
+        if (!success) return
+        commit('updateToken', token)
+        commit('updateUid', uid)
+        commit('updateclient', client)
+      })
+    },
     login({ commit }, authData) {
       axios.post('/api/auth/sign_in', {
         email: authData.email,
@@ -46,6 +64,9 @@ export default new Vuex.Store({
         commit('updateToken', response.headers['access-token'])
         commit('updateUid', response.headers['uid'])
         commit('updateclient', response.headers['client'])
+        localStorage.setItem('token', response.headers['access-token'])
+        localStorage.setItem('uid', response.headers['uid'])
+        localStorage.setItem('client', response.headers['client'])
         router.push('/').catch(err => {
           console.info(err)
         })
@@ -74,6 +95,9 @@ export default new Vuex.Store({
         commit('updateToken', null)
         commit('updateUid', null)
         commit('updateclient', null)
+        localStorage.removeItem('token')
+        localStorage.removeItem('uid')
+        localStorage.removeItem('client')
         router.replace('/login')
       })
     },

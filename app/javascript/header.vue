@@ -5,28 +5,47 @@
     dark
     app
   >
-    <v-toolbar-title>Tundaa</v-toolbar-title>
+    <router-link
+      to="/"
+      class="text-decoration-none"
+    >
+      <v-toolbar-title class="white--text">
+        Tundaa
+      </v-toolbar-title>
+    </router-link>
 
     <v-spacer />
     <template v-if="!isAuthenticated">
-      <router-link to="/">
+      <router-link
+        to="/"
+        class="text-decoration-none"
+      >
         <v-btn>
           今すぐ始める
         </v-btn>
       </router-link>
-      <router-link to="/login">
+      <router-link
+        to="/login"
+        class="text-decoration-none"
+      >
         <v-btn>
           ログイン
         </v-btn>
       </router-link>
-      <router-link to="/sign_up">
+      <router-link
+        to="/sign_up"
+        class="text-decoration-none"
+      >
         <v-btn>
           アカウント登録
         </v-btn>
       </router-link>
     </template>
     <template v-else>
-      <router-link to="/questions">
+      <router-link
+        to="/questions"
+        class="text-decoration-none"
+      >
         <v-btn>
           質問一覧
         </v-btn>

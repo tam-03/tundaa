@@ -2,6 +2,7 @@
   <v-app>
     <Header />
     <v-main>
+      <Alert />
       <router-view />
     </v-main>
     <v-footer app>
@@ -12,10 +13,12 @@
 
 <script>
 import Header from './header'
+import Alert from './Alert'
 
 export default {
   components: {
-    'Header': Header
+    'Header': Header,
+    'Alert': Alert
   }
 }
 </script>

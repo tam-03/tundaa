@@ -8,11 +8,13 @@ services:
     build: .
     ports:
       - '3000:3000'
+      - '3035:3035'
     volumes:
       - '.:/tundaa'
     environment:
       - 'DATABASE_PASSWORD=postgres'
-      - "SELENIUM_DRIVER_URL=http://chrome:4444/wd/hub"
+      - 'SELENIUM_DRIVER_URL=http://chrome:4444/wd/hub'
+      - 'WEBPACKER_DEV_SERVER_HOST=web'
     tty: true
     stdin_open: true
     depends_on:

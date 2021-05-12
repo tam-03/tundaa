@@ -11,14 +11,18 @@ export default new Vuex.Store({
     uid: null,
     client: null,
     questions: null,
-    question: null
+    question: null,
+    alertType: null,
+    alertMessage: null
   },
   getters: {
     token: state => state.token,
     uid: state => state.uid,
     client: state => state.client,
     questions: state => state.questions,
-    question: state => state.question
+    question: state => state.question,
+    alertType: state => state.alertType,
+    alertMessage: state => state.alertMessage
   },
   mutations: {
     updateToken(state, token) {
@@ -35,6 +39,12 @@ export default new Vuex.Store({
     },
     updateQuestion(state, question) {
       state.question = question
+    },
+    updateAlertType(state, alertType) {
+      state.alertType = alertType
+    },
+    updateAlertMessage(state, alertMessage) {
+      state.alertMessage = alertMessage
     }
   },
   actions: {
@@ -56,7 +66,7 @@ export default new Vuex.Store({
         commit('updateclient', client)
       })
     },
-    login({ commit }, authData) {
+    login({ commit, dispatch }, authData) {
       axios.post('/api/auth/sign_in', {
         email: authData.email,
         password: authData.password,
@@ -70,9 +80,13 @@ export default new Vuex.Store({
         router.push('/').catch(err => {
           console.info(err)
         })
+        dispatch('setAlert', {
+          type: "success",
+          message: "ログインしました"
+        })
       })
     },
-    register({ commit }, authData) {
+    register({ commit, dispatch }, authData) {
       axios.post('/api/auth/', {
         email: authData.email,
         password: authData.password,
@@ -82,9 +96,13 @@ export default new Vuex.Store({
         commit('updateUid', response.headers['uid'])
         commit('updateclient', response.headers['client'])
         router.push('/')
+        dispatch('setAlert', {
+          type: "success",
+          message: "アカウント登録が完了しました"
+        })
       })
     },
-    logout({ commit, state }) {
+    logout({ commit, state, dispatch }) {
       axios.delete('api/auth/sign_out', {
         headers: {
           'access-token': state.token,
@@ -99,9 +117,13 @@ export default new Vuex.Store({
         localStorage.removeItem('uid')
         localStorage.removeItem('client')
         router.replace('/login')
+        dispatch('setAlert', {
+          type: "success",
+          message: "ログアウトしました"
+        })
       })
     },
-    saveQuestion({ state }, questionData) {
+    saveQuestion({ state, dispatch }, questionData) {
       axios.post('/api/questions', {
         title: questionData.title,
         body: questionData.content
@@ -113,6 +135,10 @@ export default new Vuex.Store({
         }
       }).then(() => {
         router.push('/')
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "保存しました"
       })
     },
     getQuestions({ commit, state }) {
@@ -138,7 +164,7 @@ export default new Vuex.Store({
         commit('updateQuestion', response.data)
       })
     },
-    editQuestion({ state }, editQuestionData) {
+    editQuestion({ state, dispatch }, editQuestionData) {
       axios.patch(`${editQuestionData.id}.json`, {
         title: editQuestionData.title,
         body: editQuestionData.body
@@ -152,8 +178,12 @@ export default new Vuex.Store({
       }).then(() => {
         router.push('/questions')
       })
+      dispatch('setAlert', {
+        type: "success",
+        message: "編集を保存しました"
+      })
     },
-    deleteQuestion({ state }, deleteQuestionData) {
+    deleteQuestion({ state, dispatch }, deleteQuestionData) {
       axios.delete(`${deleteQuestionData.id}.json`, {
         headers: {
           'access-token': state.token,
@@ -164,6 +194,18 @@ export default new Vuex.Store({
       }).then(() => {
         router.push('/questions')
       })
+      dispatch('setAlert', {
+        type: "success",
+        message: "削除しました"
+      })
+    },
+    setAlert({ commit }, alertData) {
+      commit('updateAlertType', alertData.type)
+      commit('updateAlertMessage', alertData.message)
+      setTimeout(() => {
+        commit('updateAlertType', null)
+        commit('updateAlertMessage', null)
+      },3000)
     }
   }
 })

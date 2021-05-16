@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>登録</h2>
-    <form>
+    <form id="register">
       <v-text-field
         v-model="email"
         label="email"

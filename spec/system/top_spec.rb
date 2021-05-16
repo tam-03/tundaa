@@ -11,18 +11,18 @@ RSpec.feature "top", type: :system do
     end
   end
   context "認証有りのユーザーの場合" do
-    let(:user) { create(:user, email: "test@example.com", password: "testtest") }
+    let(:user) { create(:user) }
     before do
       visit login_path
-      fill_in "email", with: "test@example.com"
-      fill_in "password", with: "testtest"
+      fill_in "email", with: user.email
+      fill_in "password", with: user.password
       within "#login" do
         click_button "ログイン"
       end
     end
     scenario "トップページから/homeリダイレクトされる", js: true do
+      expect(page).to have_content "ログインしました"
       visit root_path
-      pending "更新してもtokenを持つ様に設定する"
       expect(current_path).to eq home_path
       expect(page).to have_content "質問を作成する"
     end

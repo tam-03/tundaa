@@ -1,5 +1,5 @@
 <template>
-  <v-container class="grey lighten-5">
+  <v-container>
     <h2>質問を作成する</h2>
     <v-row
       v-for="n in 1"
@@ -8,8 +8,8 @@
       no-gutters
     >
       <v-col
-        v-for="card in cards"
-        :key="card.title"
+        v-for="template in templates"
+        :key="template.id"
       >
         <v-card
           class="pa-2"
@@ -18,17 +18,18 @@
           shaped
           tile
         >
-          <v-card-title>{{ card.title }}</v-card-title>
-          <v-spacer />
+          <v-card-title>{{ template.title }}</v-card-title>
+          <v-card-text>
+            {{ template.body }}
+          </v-card-text>
           <v-card-actions>
-            <router-link to="/questions/new">
-              <v-btn
-                text
-                color="teal accent-4"
-              >
-                作成
-              </v-btn>
-            </router-link>
+            <v-btn
+              color="orange lighten-1 accent-4"
+              text
+              to="/questions/new"
+            >
+              作成
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -38,17 +39,21 @@
 
 <script>
 export default {
-  data: () => ({
-      cards: [
-        { title: '何が分からないか分かっている' },
-        { title: '何が分からないか分からない' },
-        { title: 'もう何も分からない' },
-      ],
-    }),
-    computed: {
+  computed: {
     isAuthenticated() {
       return this.$store.getters.token !== null
+    },
+    templates() {
+       return this.$store.getters.templates
     }
+  },
+  created() {
+    this.getTemplates()
+  },
+  methods: {
+    getTemplates() {
+       this.$store.dispatch('getTemplates')
+     }
   }
 }
 </script>

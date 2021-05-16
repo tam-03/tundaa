@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    color="deep-purple accent-4"
+    color="orange lighten-1"
     dense
     dark
     app
@@ -20,7 +20,9 @@
         to="/"
         class="text-decoration-none"
       >
-        <v-btn>
+        <v-btn
+          text
+        >
           今すぐ始める
         </v-btn>
       </router-link>
@@ -28,7 +30,7 @@
         to="/login"
         class="text-decoration-none"
       >
-        <v-btn>
+        <v-btn text>
           ログイン
         </v-btn>
       </router-link>
@@ -36,7 +38,7 @@
         to="/sign_up"
         class="text-decoration-none"
       >
-        <v-btn>
+        <v-btn text>
           アカウント登録
         </v-btn>
       </router-link>
@@ -46,11 +48,16 @@
         to="/questions"
         class="text-decoration-none"
       >
-        <v-btn>
+        <v-btn
+          text
+        >
           質問一覧
         </v-btn>
       </router-link>
-      <v-btn @click="logout">
+      <v-btn
+        text
+        @click="logout"
+      >
         ログアウト
       </v-btn>
     </template>

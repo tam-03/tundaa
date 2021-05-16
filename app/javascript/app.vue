@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Header from './header'
+import Header from './Header'
 import Alert from './Alert'
 
 export default {

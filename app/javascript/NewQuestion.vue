@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       title: '',
-      content: ''
+      content: this.$store.getters.template.body
     }
   },
   methods: {

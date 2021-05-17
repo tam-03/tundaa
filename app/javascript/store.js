@@ -15,6 +15,7 @@ export default new Vuex.Store({
     alertType: null,
     alertMessage: null,
     templates: null,
+    template: null,
   },
   getters: {
     token: state => state.token,
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     alertType: state => state.alertType,
     alertMessage: state => state.alertMessage,
     templates: state => state.templates,
+    template: state => state.template,
   },
   mutations: {
     updateToken(state, token) {
@@ -50,6 +52,9 @@ export default new Vuex.Store({
     },
     updateTemplates(state, templates) {
       state.templates = templates
+    },
+    updateTemplate(state, template) {
+      state.template = template
     },
   },
   actions: {
@@ -216,6 +221,9 @@ export default new Vuex.Store({
       axios.get('api/templates.json').then(response => {
         commit('updateTemplates', response.data.templates)
       })
+    },
+    passTemplate({ commit }, passData) {
+      commit('updateTemplate', passData.template)
     },
   }
 })

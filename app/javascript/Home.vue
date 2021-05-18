@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <h2>質問を作成する</h2>
+    <div class="text-h2 text-center ma-10">
+      質問を作成する
+    </div>
     <v-row
       v-for="n in 1"
       :key="n"
@@ -10,15 +12,21 @@
       <v-col
         v-for="template in templates"
         :key="template.id"
+        class="ma-5"
       >
         <v-card
           class="pa-2"
           elevation="2"
-          outlined
           shaped
-          tile
+          :disabled="!isAuthenticated && template.id !== 1 ? disabled : !disabled"
           :class="`template-${template.id}`"
         >
+          <v-icon
+            x-large
+            left
+          >
+            {{ template.icon }}
+          </v-icon>
           <v-card-title>{{ template.title }}</v-card-title>
           <v-card-text>
             {{ template.body }}
@@ -53,19 +61,24 @@ export default {
       templates: [
         {
           "id": 1,
-          "title": "テンプレートタイトル1",
-          "body": "テンプレートの内容 1"
+          "title": "何が分からないか分かっている",
+          "body": 'テンプレートの内容 1',
+          "icon": "mdi-emoticon-happy-outline",
         },
         {
           "id": 2,
-          "title": "テンプレートタイトル2",
-          "body": "テンプレートの内容 2"
+          "title": "何が分からないか分からない",
+          "body": "テンプレートの内容 2",
+          "icon": "mdi-emoticon-confused-outline",
         },
         {
           "id": 3,
-          "title": "テンプレートタイトル3",
-          "body": "テンプレートの内容 3"
-        } ]
+          "title": "もう何も分からない",
+          "body": "テンプレートの内容 3",
+          "icon": "mdi-emoticon-dead-outline",
+        }
+      ],
+      disabled: true
     }
   },
   computed: {

@@ -17,16 +17,16 @@ RSpec.describe "Template API", type: :request do
       expect(res["templates"].count).to eq 3
 
       template = res["templates"][0]
-        expect(template["title"]).to eq "テンプレート1"
-        expect(template["body"]).to eq "テンプレート1の内容"
+      expect(template["title"]).to eq "テンプレート1"
+      expect(template["body"]).to eq "テンプレート1の内容"
 
-        template = res["templates"][1]
-        expect(template["title"]).to eq "テンプレート2"
-        expect(template["body"]).to eq "テンプレート2の内容"
+      template = res["templates"][1]
+      expect(template["title"]).to eq "テンプレート2"
+      expect(template["body"]).to eq "テンプレート2の内容"
 
-        template = res["templates"][2]
-        expect(template["title"]).to eq "テンプレート3"
-        expect(template["body"]).to eq "テンプレート3の内容"
+      template = res["templates"][2]
+      expect(template["title"]).to eq "テンプレート3"
+      expect(template["body"]).to eq "テンプレート3の内容"
     end
   end
 end

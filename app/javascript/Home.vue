@@ -36,13 +36,23 @@
               to="/questions/new"
               class="text-decoration-none"
             >
-              <v-btn
-                color="orange lighten-1 accent-4"
-                text
-                @click="passTemplate(template)"
-              >
-                作成
-              </v-btn>
+              <temmplate v-if="!isAuthenticated && template.id !== 1">
+                <v-btn
+                  color="orange lighten-1 accent-4"
+                  text
+                >
+                  会員登録をするとご覧頂けます
+                </v-btn>
+              </temmplate>
+              <temmplate v-else>
+                <v-btn
+                  color="orange lighten-1 accent-4"
+                  text
+                  @click="passTemplate(template)"
+                >
+                  作成
+                </v-btn>
+              </temmplate>
             </router-link>
           </v-card-actions>
         </v-card>

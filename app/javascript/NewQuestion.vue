@@ -49,7 +49,10 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-btn @click="saveQuestion">
+    <v-btn
+      :disabled="!isAuthenticated"
+      @click="saveQuestion"
+    >
       保存する
     </v-btn>
   </div>
@@ -71,6 +74,11 @@ export default {
       content: this.$store.getters.template.body,
       preview: true,
     }
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.token !== null
+    },
   },
   methods: {
     saveQuestion() {

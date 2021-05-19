@@ -40,6 +40,7 @@
                 <v-btn
                   color="orange lighten-1 accent-4"
                   text
+                  large
                 >
                   会員登録をするとご覧頂けます
                 </v-btn>
@@ -48,6 +49,7 @@
                 <v-btn
                   color="orange lighten-1 accent-4"
                   text
+                  large
                   @click="passTemplate(template)"
                 >
                   作成

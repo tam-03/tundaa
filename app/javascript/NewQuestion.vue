@@ -9,10 +9,16 @@
         v-model="title"
         type="text"
       >
+      <v-btn @click="preview = true">
+        プレビュー
+      </v-btn>
+      <v-btn @click="preview = false">
+        例文
+      </v-btn>
       <v-row
         no-gutters
       >
-        <v-col>
+        <v-col id="input_area">
           <v-card
             class="pa-2"
             outlined
@@ -24,16 +30,21 @@
             />
           </v-card>
         </v-col>
-        <v-col>
+        <v-col id="preview_and_sample_area">
           <v-card
             class="pa-2"
             outlined
             tile
           >
-            <markdown-it-vue
-              class="md-body"
-              :content="content"
-            />
+            <template v-if="preview">
+              <markdown-it-vue
+                class="md-body"
+                :content="content"
+              />
+            </template>
+            <template v-else>
+              <SampleQuestion />
+            </template>
           </v-card>
         </v-col>
       </v-row>
@@ -47,15 +58,18 @@
 <script>
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
+import SampleQuestion from './SampleQuestion.vue'
 
 export default {
   components: {
-    MarkdownItVue
+    MarkdownItVue,
+    SampleQuestion,
   },
   data() {
     return {
       title: '',
-      content: this.$store.getters.template.body
+      content: this.$store.getters.template.body,
+      preview: true,
     }
   },
   methods: {

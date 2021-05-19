@@ -13,7 +13,9 @@ export default new Vuex.Store({
     questions: null,
     question: null,
     alertType: null,
-    alertMessage: null
+    alertMessage: null,
+    templates: null,
+    template: null,
   },
   getters: {
     token: state => state.token,
@@ -22,7 +24,9 @@ export default new Vuex.Store({
     questions: state => state.questions,
     question: state => state.question,
     alertType: state => state.alertType,
-    alertMessage: state => state.alertMessage
+    alertMessage: state => state.alertMessage,
+    templates: state => state.templates,
+    template: state => state.template,
   },
   mutations: {
     updateToken(state, token) {
@@ -45,7 +49,13 @@ export default new Vuex.Store({
     },
     updateAlertMessage(state, alertMessage) {
       state.alertMessage = alertMessage
-    }
+    },
+    updateTemplates(state, templates) {
+      state.templates = templates
+    },
+    updateTemplate(state, template) {
+      state.template = template
+    },
   },
   actions: {
     validateToken({ commit }) {
@@ -206,6 +216,14 @@ export default new Vuex.Store({
         commit('updateAlertType', null)
         commit('updateAlertMessage', null)
       },3000)
-    }
+    },
+    getTemplates({ commit }) {
+      axios.get('api/templates.json').then(response => {
+        commit('updateTemplates', response.data.templates)
+      })
+    },
+    passTemplate({ commit }, passData) {
+      commit('updateTemplate', passData.template)
+    },
   }
 })

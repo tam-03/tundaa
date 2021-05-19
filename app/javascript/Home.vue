@@ -1,6 +1,8 @@
 <template>
-  <v-container class="grey lighten-5">
-    <h2>質問を作成する</h2>
+  <v-container>
+    <div class="text-h2 text-center ma-10">
+      質問を作成する
+    </div>
     <v-row
       v-for="n in 1"
       :key="n"
@@ -8,26 +10,51 @@
       no-gutters
     >
       <v-col
-        v-for="card in cards"
-        :key="card.title"
+        v-for="template in templates"
+        :key="template.id"
+        class="ma-5"
       >
         <v-card
           class="pa-2"
           elevation="2"
-          outlined
           shaped
-          tile
+          :disabled="!isAuthenticated && template.id !== 1 ? disabled : !disabled"
+          :class="`template-${template.id}`"
         >
-          <v-card-title>{{ card.title }}</v-card-title>
-          <v-spacer />
+          <v-icon
+            x-large
+            left
+          >
+            {{ template.icon }}
+          </v-icon>
+          <v-card-title>{{ template.title }}</v-card-title>
+          <v-card-text>
+            {{ template.body }}
+          </v-card-text>
           <v-card-actions>
-            <router-link to="/questions/new">
-              <v-btn
-                text
-                color="teal accent-4"
-              >
-                作成
-              </v-btn>
+            <router-link
+              to="/questions/new"
+              class="text-decoration-none"
+            >
+              <temmplate v-if="!isAuthenticated && template.id !== 1">
+                <v-btn
+                  color="orange lighten-1 accent-4"
+                  text
+                  large
+                >
+                  会員登録をするとご覧頂けます
+                </v-btn>
+              </temmplate>
+              <temmplate v-else>
+                <v-btn
+                  color="orange lighten-1 accent-4"
+                  text
+                  large
+                  @click="passTemplate(template)"
+                >
+                  作成
+                </v-btn>
+              </temmplate>
             </router-link>
           </v-card-actions>
         </v-card>
@@ -38,16 +65,50 @@
 
 <script>
 export default {
-  data: () => ({
-      cards: [
-        { title: '何が分からないか分かっている' },
-        { title: '何が分からないか分からない' },
-        { title: 'もう何も分からない' },
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.getTemplates())
+  },
+  data() {
+    return {
+      templates: [
+        {
+          "id": 1,
+          "title": "何が分からないか分かっている",
+          "body": 'テンプレートの内容 1',
+          "icon": "mdi-emoticon-happy-outline",
+        },
+        {
+          "id": 2,
+          "title": "何が分からないか分からない",
+          "body": "テンプレートの内容 2",
+          "icon": "mdi-emoticon-confused-outline",
+        },
+        {
+          "id": 3,
+          "title": "もう何も分からない",
+          "body": "テンプレートの内容 3",
+          "icon": "mdi-emoticon-dead-outline",
+        }
       ],
-    }),
-    computed: {
+      disabled: true
+    }
+  },
+  computed: {
     isAuthenticated() {
       return this.$store.getters.token !== null
+    },
+    // templates() {
+    //    return this.$store.getters.templates
+    // }
+  },
+  methods: {
+    getTemplates() {
+       this.$store.dispatch('getTemplates')
+    },
+    passTemplate(template) {
+      this.$store.dispatch('passTemplate', {
+        template: template
+      })
     }
   }
 }

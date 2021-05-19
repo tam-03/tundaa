@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import vuetify from './packs/vuetify.js'
-import App from './app.vue'
+import App from './App.vue'
 import router from './router.js'
 import store from './store.js'
 

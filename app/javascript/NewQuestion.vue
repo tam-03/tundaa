@@ -5,10 +5,11 @@
       fluid
       class="grey lighten-5"
     >
-      <input
+      <v-text-field
         v-model="title"
-        type="text"
-      >
+        label="タイトル"
+        placeholder="タイトルを入力して下さい"
+      />
       <v-btn @click="preview = true">
         プレビュー
       </v-btn>
@@ -27,6 +28,7 @@
             <v-textarea
               v-model="content"
               name="input-7-4"
+              label="body"
             />
           </v-card>
         </v-col>
@@ -55,6 +57,7 @@
     >
       保存する
     </v-btn>
+    <span v-if="!isAuthenticated">会員登録をすると保存が出来ます</span>
   </div>
 </template>
 

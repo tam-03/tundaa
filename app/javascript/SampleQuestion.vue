@@ -8,7 +8,8 @@
     >
       <v-tab
         v-for="sample in samples"
-        :key="sample"
+        :key="sample.id"
+        :class="`sample-${sample.id}`"
       >
         {{ sample.title }}
       </v-tab>
@@ -47,9 +48,9 @@ export default {
       return {
         tab: null,
         samples: [
-          {title: "サンプル1", body: "サンプル1内容"},
-          {title: "サンプル2", body: "サンプル2内容"},
-          {title: "サンプル3", body: "サンプル3内容"},
+          {id:1, title: "サンプル1", body: "サンプル1内容"},
+          {id:2, title: "サンプル2", body: "サンプル2内容"},
+          {id:3, title: "サンプル3", body: "サンプル3内容"},
         ]
       }
     },

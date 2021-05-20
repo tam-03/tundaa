@@ -18,21 +18,6 @@ RSpec.feature "Question New", type: :system do
         expect(page).to have_content("テスト")
       end
     end
-    scenario "例文を見れる", js: true do
-      click_button "例文"
-      within "#preview_and_sample_area" do
-        expect(page).to have_content("サンプル1")
-        expect(page).to have_content("サンプル2")
-        expect(page).to have_content("サンプル3")
-        expect(page).to have_content("サンプル1内容")
-        find(".sample-2").click
-        expect(page).to have_content("サンプル2内容")
-        find(".sample-3").click
-        expect(page).to have_content("サンプル3内容")
-        find(".sample-1").click
-        expect(page).to have_content("サンプル1内容")
-      end
-    end
   end
 
   context "認証なしのユーザーの場合" do
@@ -92,6 +77,26 @@ RSpec.feature "Question New", type: :system do
       expect(page).to have_content("保存しました")
       click_button "質問一覧"
       expect(page).to have_content("Linuxが分からない")
+    end
+
+    scenario "例文を見れる", js: true do
+      visit home_path
+      within ".template-1" do
+        click_button "作成"
+      end
+      click_button "例文"
+      within "#preview_and_sample_area" do
+        expect(page).to have_content("サンプル1")
+        expect(page).to have_content("サンプル2")
+        expect(page).to have_content("サンプル3")
+        expect(page).to have_content("サンプル1内容")
+        find(".sample-2").click
+        expect(page).to have_content("サンプル2内容")
+        find(".sample-3").click
+        expect(page).to have_content("サンプル3内容")
+        find(".sample-1").click
+        expect(page).to have_content("サンプル1内容")
+      end
     end
   end
 end

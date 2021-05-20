@@ -1,64 +1,92 @@
 <template>
-  <div>
-    <h1>質問を作成</h1>
-    <v-container
-      fluid
-      class="grey lighten-5"
-    >
+  <v-container
+    fluid
+  >
+    <div class="text-h2 text-center ma-5">
+      質問を作成
+    </div>
+    <div class="text-center mr-16 ml-16">
       <v-text-field
         v-model="title"
         label="タイトル"
         placeholder="タイトルを入力して下さい"
       />
-      <v-btn @click="preview = true">
-        プレビュー
-      </v-btn>
-      <v-btn @click="preview = false">
-        例文
-      </v-btn>
-      <v-row
-        no-gutters
-      >
-        <v-col id="input_area">
-          <v-card
-            class="pa-2"
-            outlined
-            tile
-          >
-            <v-textarea
-              v-model="content"
-              name="input-7-4"
-              label="body"
-            />
-          </v-card>
-        </v-col>
-        <v-col id="preview_and_sample_area">
-          <v-card
-            class="pa-2"
-            outlined
-            tile
-          >
-            <template v-if="preview">
-              <markdown-it-vue
-                class="md-body"
-                :content="content"
-              />
-            </template>
-            <template v-else>
-              <SampleQuestion />
-            </template>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-btn
-      :disabled="!isAuthenticated"
-      @click="saveQuestion"
+    </div>
+    <v-row
+      no-gutters
+      justify="center"
     >
-      保存する
-    </v-btn>
-    <span v-if="!isAuthenticated">会員登録をすると保存が出来ます</span>
-  </div>
+      <v-col id="input_area">
+        <label
+          for="body"
+          style="display: block; padding: 10px;"
+        >
+          内容
+        </label>
+        <v-textarea
+          v-model="content"
+          name="body"
+          rows="10"
+          outlined
+        />
+      </v-col>
+      <v-col id="preview_and_sample_area">
+        <label
+          for="preview"
+        >
+          <v-btn
+            color="orange lighten-1 accent-4"
+            text
+            large
+            @click="preview = true"
+          >
+            プレビュー
+          </v-btn>
+          <v-btn
+            color="orange lighten-1 accent-4"
+            text
+            :disabled="!isAuthenticated"
+            large
+            @click="preview = false"
+          >
+            例文
+          </v-btn>
+        </label>
+        <v-card
+          class="pa-2"
+          outlined
+          min-height="292"
+        >
+          <template v-if="preview">
+            <markdown-it-vue
+              class="md-body"
+              :content="content"
+            />
+          </template>
+          <template v-else>
+            <SampleQuestion />
+          </template>
+        </v-card>
+      </v-col>
+    </v-row>
+    <div class="text-center ma-10">
+      <v-btn
+        color="orange lighten-1 accent-4"
+        :disabled="!isAuthenticated"
+        outlined
+        large
+        @click="saveQuestion"
+      >
+        保存する
+      </v-btn>
+      <div
+        v-if="!isAuthenticated"
+        class="text-caption"
+      >
+        会員登録をすると保存が出来ます
+      </div>
+    </div>
+  </v-container>
 </template>
 
 <script>

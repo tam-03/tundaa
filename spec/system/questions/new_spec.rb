@@ -18,6 +18,10 @@ RSpec.feature "Question New", type: :system do
         expect(page).to have_content("テスト")
       end
     end
+    scenario "タイトルの入力が無いと保存ボタンが押せない", js: true do
+      fill_in "タイトル", with: ""
+      expect(page).to have_button "保存する", disabled: true
+    end
   end
 
   context "認証なしのユーザーの場合" do
@@ -28,6 +32,9 @@ RSpec.feature "Question New", type: :system do
       end
     end
     scenario "保存ができない", js: true do
+      fill_in "タイトル", with: "Railsが分からない"
+      fill_in "body", with: "Strong Parameterでエラーが出る"
+      expect(page).to have_button "保存する", disabled: true
       expect(page).to have_content("会員登録をすると保存が出来ます")
     end
   end

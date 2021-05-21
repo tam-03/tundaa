@@ -24,7 +24,7 @@
           内容
         </label>
         <v-textarea
-          v-model="content"
+          v-model="body"
           name="body"
           rows="11"
           auto-grow
@@ -62,7 +62,7 @@
           <template v-if="preview">
             <markdown-it-vue
               class="md-body"
-              :content="content"
+              :content="body"
             />
           </template>
           <template v-else>
@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       title: '',
-      content: this.$store.getters.template.body,
+      body: this.$store.getters.template.body,
       preview: true,
     }
   },
@@ -117,10 +117,10 @@ export default {
     saveQuestion() {
       this.$store.dispatch('saveQuestion', {
         title: this.title,
-        content: this.content
+        body: this.body
       })
       this.title = ''
-      this.content = ''
+      this.body = ''
     }
   }
 }

@@ -9,7 +9,7 @@
       <v-text-field
         v-model="title"
         label="タイトル"
-        placeholder="タイトルを入力して下さい"
+        color="orange lighten-1 accent-4"
       />
     </div>
     <v-row
@@ -29,6 +29,7 @@
           rows="11"
           auto-grow
           outlined
+          color="orange lighten-1 accent-4"
         />
       </v-col>
       <v-col id="preview_and_sample_area">

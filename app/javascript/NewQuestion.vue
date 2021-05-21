@@ -10,6 +10,7 @@
         v-model="title"
         label="タイトル"
         color="orange lighten-1 accent-4"
+        :rules="[rules.required]"
       />
     </div>
     <v-row
@@ -73,8 +74,9 @@
     </v-row>
     <div class="text-center ma-10">
       <v-btn
+        id="save_question"
         color="orange lighten-1 accent-4"
-        :disabled="!isAuthenticated"
+        :disabled="!isAuthenticated || title == ''"
         outlined
         large
         @click="saveQuestion"
@@ -106,6 +108,9 @@ export default {
       title: '',
       body: this.$store.getters.template.body,
       preview: true,
+      rules: {
+        required: value => !!value || 'タイトルを入力して下さい',
+      },
     }
   },
   computed: {

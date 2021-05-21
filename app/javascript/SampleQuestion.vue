@@ -1,9 +1,9 @@
 <template>
-  <v-card color="basil">
+  <div>
     <v-tabs
       v-model="tab"
       background-color="transparent"
-      color="basil"
+      color="orange lighten-1 accent-4"
       grow
     >
       <v-tab
@@ -21,7 +21,6 @@
         :key="sample"
       >
         <v-card
-          color="basil"
           flat
         >
           <v-card-text>
@@ -33,7 +32,7 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-  </v-card>
+  </div>
 </template>
 
 <script>

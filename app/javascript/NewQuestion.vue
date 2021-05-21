@@ -26,7 +26,8 @@
         <v-textarea
           v-model="content"
           name="body"
-          rows="10"
+          rows="11"
+          auto-grow
           outlined
         />
       </v-col>
@@ -55,7 +56,7 @@
         <v-card
           class="pa-2"
           outlined
-          min-height="292"
+          min-height="275"
         >
           <template v-if="preview">
             <markdown-it-vue

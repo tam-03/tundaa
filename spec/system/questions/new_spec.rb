@@ -22,6 +22,12 @@ RSpec.feature "Question New", type: :system do
       fill_in "タイトル", with: ""
       expect(page).to have_button "保存する", disabled: true
     end
+    scenario "クリックでコピーができる", js: true do
+      fill_in "タイトル", with: "Railsが分からない"
+      fill_in "body", with: "Parameterでエラーが出る"
+      find("#markdown_preview").click
+      expect(page).to have_content("Markdownをコピーしました")
+    end
   end
 
   context "認証なしのユーザーの場合" do

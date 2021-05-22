@@ -55,21 +55,29 @@
             例文
           </v-btn>
         </label>
-        <v-card
-          class="pa-2"
-          outlined
-          min-height="275"
-        >
-          <template v-if="preview">
+        <template v-if="preview">
+          <v-card
+            id="markdown_preview"
+            class="pa-2"
+            outlined
+            min-height="275"
+            @click="doCopy"
+          >
             <markdown-it-vue
               class="md-body"
               :content="body"
             />
-          </template>
-          <template v-else>
+          </v-card>
+        </template>
+        <template v-else>
+          <v-card
+            class="pa-2"
+            outlined
+            min-height="275"
+          >
             <SampleQuestion />
-          </template>
-        </v-card>
+          </v-card>
+        </template>
       </v-col>
     </v-row>
     <div class="text-center ma-10">
@@ -94,9 +102,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import SampleQuestion from './SampleQuestion.vue'
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 export default {
   components: {
@@ -126,6 +137,14 @@ export default {
       })
       this.title = ''
       this.body = ''
+    },
+    doCopy() {
+      this.$copyText(this.body).then(() => {
+        this.$store.dispatch('setAlert', {
+          type: "info",
+          message: "Markdownをコピーしました"
+        })
+      })
     }
   }
 }

@@ -25,6 +25,7 @@
           内容
         </label>
         <v-textarea
+          id="input_markdown"
           v-model="body"
           name="body"
           rows="11"

@@ -27,9 +27,9 @@ RSpec.feature "Question New", type: :system do
       fill_in "body", with: "## Parameterでエラーが出る"
       find("#markdown_preview").click
       expect(page).to have_content("Markdownをコピーしました")
-      find("#input_markdown").send_keys [:control, 'A'], :backspace
+      find("#input_markdown").send_keys [:control, "A"], :backspace
       expect(page).to_not have_field "body", with: "## Parameterでエラーが出る"
-      find("#input_markdown").send_keys [:control, 'V']
+      find("#input_markdown").send_keys [:control, "V"]
       expect(page).to have_field "body", with: "## Parameterでエラーが出る"
     end
   end

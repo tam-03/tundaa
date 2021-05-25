@@ -1,15 +1,51 @@
 <template>
-  <div>
-    <h1>一覧</h1>
-    <div
+  <v-container>
+    <div class="text-h2 text-center ma-5">
+      一覧
+    </div>
+    <v-row
       v-for="question in questions"
       :key="question.id"
+      no-gutters
     >
-      <router-link :to="question.url">
-        {{ question.title }}
-      </router-link>
-    </div>
-  </div>
+      <v-col>
+        <v-hover v-slot="{ hover }">
+          <v-card
+            outlined
+            tile
+            :elevation="hover ? 12 : 2"
+            :class="{ 'on-hover': hover }"
+            class="d-flex justify-space-between"
+          >
+            <router-link
+              :to="question.url"
+              class="text-decoration-none orange--text text--lighten-1"
+            >
+              <v-card-title
+                :class="{ 'text--secondary': !hover, 'text-decoration-underline': hover }"
+              >
+                {{ question.title }}
+              </v-card-title>
+            </router-link>
+            <v-card-actions class="text-right">
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="orange lighten-1 accent-4"
+                :to="question.editUrl"
+              >
+                <v-icon dark>
+                  mdi-pencil
+                </v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-hover>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

@@ -3,10 +3,12 @@
 require "rails_helper"
 
 RSpec.feature "Question Index", type: :system do
-  # context "認証なしのユーザーの場合" do
-  #   scenario "topにリダイレクトされる", js: true do
-  #   end
-  # end
+  context "認証なしのユーザーの場合" do
+    scenario "topにリダイレクトされる", js: true do
+      visit questions_path
+      expect(current_path).to eq "/login"
+    end
+  end
 
   context "認証ありのユーザーの場合" do
     let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }

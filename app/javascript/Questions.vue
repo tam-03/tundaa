@@ -7,6 +7,7 @@
       v-for="question in questions"
       :key="question.id"
       no-gutters
+      :class="`question-${question.id}`"
     >
       <v-col>
         <v-hover v-slot="{ hover }">
@@ -29,6 +30,7 @@
             </router-link>
             <v-card-actions class="text-right">
               <v-btn
+                id="edit_question_btn"
                 class="mx-2"
                 fab
                 dark

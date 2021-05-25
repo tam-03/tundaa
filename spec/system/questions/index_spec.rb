@@ -31,5 +31,18 @@ RSpec.feature "Question Index", type: :system do
       expect(page).to have_content("Railsが分からない")
       expect(page).to have_content("Javascriptが分からない")
     end
+    scenario "個別ページに遷移できる", js: true do
+      click_button "質問一覧"
+      click_link "Markdownが分からない"
+      expect(page).to have_content("Markdownが分からない")
+    end
+    scenario "編集ページに遷移できる", js: true do
+      click_button "質問一覧"
+      question = Question.find_by(title: "Markdownが分からない")
+      within ".question-#{question.id}" do
+        find("#edit_question_btn").click
+      end
+      expect(page).to have_content("質問を編集")
+    end
   end
 end

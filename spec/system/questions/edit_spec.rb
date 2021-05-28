@@ -37,15 +37,15 @@ RSpec.feature "Question Edit", type: :system do
       end
     end
     scenario "タイトルの入力が無いと保存ボタンが押せない", js: true do
-      find("#title").send_keys [:control, 'A'], :backspace
+      find("#title").send_keys [:control, "A"], :backspace
       expect(page).to have_button "編集を保存する", disabled: true
     end
     scenario "クリックでコピーができる", js: true do
       find("#markdown_preview").click
       expect(page).to have_content("Markdownをコピーしました")
-      find("#input_markdown").send_keys [:control, 'A'], :backspace
+      find("#input_markdown").send_keys [:control, "A"], :backspace
       expect(page).to_not have_field "body", with: "## 条件分岐が分からない\nelseの意味とは?"
-      find("#input_markdown").send_keys [:control, 'V']
+      find("#input_markdown").send_keys [:control, "V"]
       expect(page).to have_field "body", with: "## 条件分岐が分からない\nelseの意味とは?"
     end
     scenario "例文を見れる", js: true do

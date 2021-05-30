@@ -33,16 +33,15 @@ class API::SamplesController < API::BaseController
   end
 
   private
+    def sample_params
+      params.require(:sample).permit(:title, :body)
+    end
 
-  def sample_params
-    params.require(:sample).permit(:title, :body)
-  end
+    def set_sample
+      @sample = Sample.find(params[:id])
+    end
 
-  def set_sample
-    @sample = Sample.find(params[:id])
-  end
-
-  def template
-    Template.find(params[:template_id])
-  end
+    def template
+      Template.find(params[:template_id])
+    end
 end

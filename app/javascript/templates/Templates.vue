@@ -3,7 +3,10 @@
     <div class="text-h2 text-center ma-5">
       テンプレート
     </div>
-    <div class="text-right">
+    <div
+      id="new_template"
+      class="text-right"
+    >
       <v-btn
         class="ma-10"
         to="/templates/new"

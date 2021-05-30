@@ -22,15 +22,20 @@ RSpec.feature "Template Index", type: :system do
       within "#login" do
         click_button "ログイン"
       end
+      click_button "テンプレート"
     end
     scenario "一覧が表示される", js: true do
-      click_button "テンプレート"
       expect(page).to have_content("何が分からないか分かっている")
       expect(page).to have_content("何が分からないか分からない")
       expect(page).to have_content("もう何も分からない")
     end
+    scenario "新規作成ページに遷移できる", js: true do
+      within "#new_template" do
+        click_on "新規作成"
+      end
+      expect(current_path).to eq "/templates/new"
+    end
     scenario "編集ページに遷移できる", js: true do
-      click_button "テンプレート"
       click_on "何が分からないか分かっている"
       click_button "編集"
       template = Template.find_by(title: "何が分からないか分かっている")

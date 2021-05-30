@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   namespace "api" do
     mount_devise_token_auth_for "User", at: "auth"
     resources :questions, except: %i(new edit)
-    resources :templates, except: %i(new edit)
+    resources :templates, except: %i(new edit) do
+      resources :samples, except: %i(new edit)
+    end
   end
 end

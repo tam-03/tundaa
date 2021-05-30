@@ -38,5 +38,9 @@ RSpec.feature "Template Edit", type: :system do
       expect(page).to have_content("編集を保存しました")
       expect(page).to have_content("全然分からない")
     end
+    scenario "テンプレートの削除ができる", js: true do
+      click_button "削除"
+      expect(page).to_not have_content("何が分からないか分かっている")
+    end
   end
 end

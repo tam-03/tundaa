@@ -30,12 +30,12 @@ RSpec.feature "Template Index", type: :system do
       expect(page).to have_content("もう何も分からない")
     end
     scenario "編集ページに遷移できる", js: true do
-      click_button "質問一覧"
-      template = Template.find_by(title: "Markdownが分からない")
-      within ".template-#{template.id}" do
-        find("#edit_template_btn").click
-      end
-      expect(page).to have_content("質問を編集")
+      click_button "テンプレート"
+      click_on "何が分からないか分かっている"
+      click_button "編集"
+      template = Template.find_by(title: "何が分からないか分かっている")
+      expect(current_path).to eq "/templates/#{template.id}/edit"
+      expect(page).to have_content("テンプレートを編集")
     end
   end
 end

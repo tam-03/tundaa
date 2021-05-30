@@ -28,7 +28,7 @@ RSpec.feature "Template Edit", type: :system do
     end
     scenario "編集前のテンプレートが表示されている", js: true do
       expect(page).to have_field "タイトル", with: "何が分からないか分かっている"
-      expect(page).to have_field "#edit_template", with: "## 困っていること"
+      expect(page).to have_field "body", with: "## 困っていること"
     end
     scenario "テンプレートを編集して保存ができる", js: true do
       fill_in "タイトル", with: "全然分からない"

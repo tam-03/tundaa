@@ -225,5 +225,60 @@ export default new Vuex.Store({
     passTemplate({ commit }, passData) {
       commit('updateTemplate', passData.template)
     },
+    saveTemplate({ state, dispatch }, templateData) {
+      axios.post('/api/templates', {
+        title: templateData.title,
+        body: templateData.body
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        }
+      }).then(() => {
+        router.push('/templates')
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "保存しました"
+      })
+    },
+    editTemplate({ commit, state, dispatch }, editTemplateData) {
+      axios.patch(`${editTemplateData.id}.json`, {
+        title: editTemplateData.title,
+        body: editTemplateData.body
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then((response) => {
+        commit('updateTemplate', response.data.template)
+        router.push('/templates')
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "編集を保存しました"
+      })
+    },
+    deleteTemplate({ commit, state, dispatch }, deleteTemplateData) {
+      axios.delete(`${deleteTemplateData.id}.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        commit('updateTemplate', null)
+        router.push('/templates')
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "削除しました"
+      })
+    },
   }
 })

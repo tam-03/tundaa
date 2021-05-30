@@ -9,6 +9,9 @@ import NewQuestion from './NewQuestion'
 import Questions from './Questions'
 import Question from './Question'
 import EditQuestion from './EditQuestion'
+import Templates from './templates/Templates'
+import NewTemplate from './templates/NewTemplate'
+import EditTemplate from './templates/EditTemplate'
 
 Vue.use(VueRouter)
 
@@ -88,6 +91,39 @@ export default new VueRouter({
           next('/login')
         }
       }
-    }
+    },
+    {
+      path: "/templates",
+      component: Templates,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/templates/new",
+      component: NewTemplate,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/templates/:id/edit",
+      component: EditTemplate,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
   ]
 })

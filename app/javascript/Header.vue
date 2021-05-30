@@ -54,6 +54,16 @@
           質問一覧
         </v-btn>
       </router-link>
+      <router-link
+        to="/templates"
+        class="text-decoration-none"
+      >
+        <v-btn
+          text
+        >
+          テンプレート
+        </v-btn>
+      </router-link>
       <v-btn
         text
         @click="logout"

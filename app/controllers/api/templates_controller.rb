@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class API::TemplatesController < API::BaseController
-  before_action :authenticate_api_user!
+  before_action :authenticate_api_user!, except: %i[index]
   before_action :set_template, only: %i[show update destroy]
   protect_from_forgery except: %i[create update]
 

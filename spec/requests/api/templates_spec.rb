@@ -10,14 +10,6 @@ RSpec.describe "Template API", type: :request do
       create(:template, title: "何が分からないか分からない", body: "## 作業手順")
       create(:template, title: "もう何も分からない", body: "## ゴール")
     end
-    context "認証無しのユーザーの場合" do
-      it "エラーメッセージを返す" do
-        get api_templates_path, as: :json
-        expect(response).to have_http_status(401)
-        json = JSON.parse(response.body)
-        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
-      end
-    end
     context "認証有りのユーザーの場合" do
       let(:auth_tokens) { alice.create_new_auth_token }
       it "テンプレートの一覧を取得出来る" do

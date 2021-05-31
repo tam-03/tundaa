@@ -25,5 +25,17 @@ RSpec.feature "Sample Index", type: :system do
       expect(page).to have_content("Linuxが分からない")
       expect(page).to have_content("Railsが分からない")
     end
+    scenario "個別ページに遷移できる", js: true do
+      sample = Sample.find_by(title: "Markdownが分からない")
+      click_on "Markdownが分からない"
+      expect(current_path).to eq "/templates/#{template.id}/samples/#{sample.id}"
+    end
+    scenario "編集ページに遷移できる", js: true do
+      sample = Sample.find_by(title: "Markdownが分からない")
+      within ".sample-#{sample.id}" do
+        find("#edit_sample_btn").click
+      end
+      expect(current_path).to eq "/templates/#{template.id}/samples/#{sample.id}/edit"
+    end
   end
 end

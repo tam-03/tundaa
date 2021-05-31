@@ -74,4 +74,29 @@ RSpec.describe "Sample API", type: :request do
       end
     end
   end
+
+  describe "GET api/templates/:template_id/samples/:id" do
+    let(:alice) { create(:user, name: "Alice") }
+    let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
+    let(:sample) { create(:sample, title: "Markdownが分からない", body: "## linkが分からない", template_id: template_1.id) }
+    context "認証無しのユーザーの場合" do
+      it "エラーメッセージを返す" do
+        get api_template_sample_path(template_1.id, sample.id), as: :json
+        expect(response).to have_http_status(401)
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
+      end
+    end
+    context "認証有りのユーザーの場合" do
+      let(:auth_tokens) { alice.create_new_auth_token }
+      it "サンプルを取得出来る" do
+        get api_template_sample_path(template_1.id, sample.id), headers: auth_tokens, as: :json
+        expect(response).to have_http_status(200)
+        res = JSON.parse(response.body)
+        expect(res["title"]).to eq "Markdownが分からない"
+        expect(res["body"]).to eq "## linkが分からない"
+        expect(res["template_id"]).to eq template_1.id
+      end
+    end
+  end
 end

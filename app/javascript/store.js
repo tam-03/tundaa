@@ -16,6 +16,8 @@ export default new Vuex.Store({
     alertMessage: null,
     templates: null,
     template: null,
+    samples: null,
+    sample: null,
   },
   getters: {
     token: state => state.token,
@@ -27,6 +29,8 @@ export default new Vuex.Store({
     alertMessage: state => state.alertMessage,
     templates: state => state.templates,
     template: state => state.template,
+    samples: state => state.samples,
+    sample: state => state.sample,
   },
   mutations: {
     updateToken(state, token) {
@@ -55,6 +59,12 @@ export default new Vuex.Store({
     },
     updateTemplate(state, template) {
       state.template = template
+    },
+    updateSamples(state, samples) {
+      state.samples = samples
+    },
+    updateSample(state, sample) {
+      state.sample = sample
     },
   },
   actions: {
@@ -278,6 +288,18 @@ export default new Vuex.Store({
       dispatch('setAlert', {
         type: "success",
         message: "削除しました"
+      })
+    },
+    getSamples({ commit, state }, getSamplesData) {
+      axios.get(`${getSamplesData.template_id}/samples.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(response => {
+        commit('updateSamples', response.data.samples)
       })
     },
   }

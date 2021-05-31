@@ -12,6 +12,7 @@ import EditQuestion from './EditQuestion'
 import Templates from './templates/Templates'
 import NewTemplate from './templates/NewTemplate'
 import EditTemplate from './templates/EditTemplate'
+import Samples from './samples/Samples'
 
 Vue.use(VueRouter)
 
@@ -117,6 +118,17 @@ export default new VueRouter({
     {
       path: "/templates/:id/edit",
       component: EditTemplate,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/templates/:template_id/samples",
+      component: Samples,
       beforeEnter(to, from, next) {
         if (store.getters.token) {
           next()

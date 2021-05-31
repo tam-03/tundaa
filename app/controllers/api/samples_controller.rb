@@ -34,7 +34,7 @@ class API::SamplesController < API::BaseController
 
   private
     def sample_params
-      params.require(:sample).permit(:title, :body)
+      params.require(:sample).permit(:title, :body, :template_id)
     end
 
     def set_sample

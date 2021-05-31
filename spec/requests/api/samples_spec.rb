@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Sample API", type: :request do
-  describe "GET api/templates/:id/samples" do
+  describe "GET api/templates/:template_id/samples" do
     let(:alice) { create(:user, name: "Alice") }
     let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
     let(:template_2) { create(:template, title: "何が分からないか分からない", body: "## 作業手順") }
@@ -45,6 +45,32 @@ RSpec.describe "Sample API", type: :request do
 
         sample = res["samples"][2]
         expect(sample["title"]).to eq "Rubyが分からない"
+      end
+    end
+  end
+
+  describe "POST api/templates/:template_id/samples" do
+    let(:alice) { create(:user, name: "Alice") }
+    let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
+    let(:sample) { build(:sample, title: "Markdownが分からない", body: "## linkが分からない", template_id: template_1.id) }
+    context "認証無しのユーザーの場合" do
+      it "エラーメッセージを返す" do
+        post api_template_samples_path(template_1.id), params: sample, as: :json
+        expect(response).to have_http_status(401)
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
+      end
+    end
+    context "認証有りのユーザーの場合" do
+      let(:auth_tokens) { alice.create_new_auth_token }
+      it "サンプルの新規作成が出来る" do
+        expect { post api_template_samples_path(template_1.id), params: sample, headers: auth_tokens, as: :json }.to change { Template.count }.by(1)
+        expect(response).to have_http_status(201)
+
+        new_sample = Sample.first
+        expect(new_sample.title).to eq "Markdownが分からない"
+        expect(new_sample.body).to eq "## linkが分からない"
+        expect(new_sample.template_id).to eq template_1.id
       end
     end
   end

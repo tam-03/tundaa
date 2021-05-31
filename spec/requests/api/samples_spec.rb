@@ -99,4 +99,29 @@ RSpec.describe "Sample API", type: :request do
       end
     end
   end
+
+  describe "PATCH api/templates/:template_id/samples/:id" do
+    let(:alice) { create(:user, name: "Alice") }
+    let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
+    let(:sample) { create(:sample, title: "Markdownが分からない", body: "## linkが分からない", template_id: template_1.id) }
+    context "認証無しのユーザーの場合" do
+      it "エラーメッセージを返す" do
+        patch api_template_sample_path(template_1.id, sample.id), params: { title: "Linuxが分からない", body: "## Permissionのエラーが出る" }, as: :json
+        expect(response).to have_http_status(401)
+        json = JSON.parse(response.body)
+        expect(json).to eq "errors" => ["You need to sign in or sign up before continuing."]
+      end
+    end
+    context "認証有りのユーザーの場合" do
+      let(:auth_tokens) { alice.create_new_auth_token }
+      it "テンプレートの編集が出来る" do
+        patch api_template_sample_path(template_1.id, sample.id), params: { title: "Linuxが分からない", body: "## Permissionのエラーが出る" }, headers: auth_tokens, as: :json
+        expect(response).to have_http_status(200)
+
+        edit_sample = Sample.find(sample.id)
+        expect(edit_sample.title).to eq "Linuxが分からない"
+        expect(edit_sample.body).to eq "## Permissionのエラーが出る"
+      end
+    end
+  end
 end

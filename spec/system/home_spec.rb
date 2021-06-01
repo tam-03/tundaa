@@ -62,6 +62,8 @@ RSpec.feature "Home", type: :system do
     scenario "テンプレート一覧に遷移できない", js: true do
       visit home_path
       expect(page).to_not have_content("テンプレート一覧")
+      visit templates_path
+      expect(current_path).to eq "/home"
     end
   end
 

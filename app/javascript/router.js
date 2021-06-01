@@ -100,10 +100,10 @@ export default new VueRouter({
       path: "/templates",
       component: Templates,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },

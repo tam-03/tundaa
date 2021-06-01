@@ -39,6 +39,15 @@
                     編集
                   </v-btn>
                 </router-link>
+                <router-link
+                  :to="template.samplesUrl"
+                >
+                  <v-btn
+                    class="mr-4"
+                  >
+                    例文一覧
+                  </v-btn>
+                </router-link>
               </div>
             </v-expansion-panel-content>
           </template>

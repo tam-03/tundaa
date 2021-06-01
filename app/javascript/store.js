@@ -16,6 +16,8 @@ export default new Vuex.Store({
     alertMessage: null,
     templates: null,
     template: null,
+    samples: null,
+    sample: null,
   },
   getters: {
     token: state => state.token,
@@ -27,6 +29,8 @@ export default new Vuex.Store({
     alertMessage: state => state.alertMessage,
     templates: state => state.templates,
     template: state => state.template,
+    samples: state => state.samples,
+    sample: state => state.sample,
   },
   mutations: {
     updateToken(state, token) {
@@ -55,6 +59,12 @@ export default new Vuex.Store({
     },
     updateTemplate(state, template) {
       state.template = template
+    },
+    updateSamples(state, samples) {
+      state.samples = samples
+    },
+    updateSample(state, sample) {
+      state.sample = sample
     },
   },
   actions: {
@@ -274,6 +284,85 @@ export default new Vuex.Store({
       }).then(() => {
         commit('updateTemplate', null)
         router.push('/templates')
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "削除しました"
+      })
+    },
+    getSamples({ commit, state }, getSamplesData) {
+      axios.get(`${getSamplesData.template_id}/samples.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(response => {
+        commit('updateSamples', response.data.samples)
+      })
+    },
+    saveSample({ state, dispatch }, saveSampleData) {
+      axios.post(`${saveSampleData.template_id}/samples.json`, {
+        title: saveSampleData.title,
+        body: saveSampleData.body,
+        template_id: saveSampleData.template_id
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        router.push(`/templates/${saveSampleData.template_id}/samples`)
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "保存しました"
+      })
+    },
+    getSample({ commit, state }, getSampleData) {
+      axios.get(`${getSampleData.template_id}/samples/${getSampleData.id}.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(response => {
+        commit('updateSample', response.data)
+      })
+    },
+    editSample({ state, dispatch }, editSampleData) {
+      axios.patch(`${editSampleData.template_id}/samples/${editSampleData.id}.json`, {
+        title: editSampleData.title,
+        body: editSampleData.body
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        router.push(`/templates/${editSampleData.template_id}/samples`)
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "編集を保存しました"
+      })
+    },
+    deleteSample({ state, dispatch }, deleteSampleData) {
+      axios.delete(`${deleteSampleData.template_id}/samples/${deleteSampleData.id}.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        router.push(`/templates/${deleteSampleData.template_id}/samples`)
       })
       dispatch('setAlert', {
         type: "success",

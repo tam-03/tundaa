@@ -37,3 +37,19 @@ end
     template_id: Template.find(1).id
   )
 end
+
+3.times do |n|
+  Sample.create!(
+    title: "サンプルタイトル#{n + 1}",
+    body: "サンプルの内容 #{n + 1}",
+    template_id: Template.find(2).id
+  )
+end
+
+3.times do |n|
+  Sample.create!(
+    title: "サンプルタイトル#{n + 1}",
+    body: "サンプルの内容 #{n + 1}",
+    template_id: Template.find(3).id
+  )
+end

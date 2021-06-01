@@ -15,6 +15,12 @@
   )
 end
 
+User.create!(
+  email: "tundaa@example.com",
+  password: "testtest",
+  admin: true
+)
+
 3.times do |n|
   Question.create!(
     title: "タイトル#{n + 1}",

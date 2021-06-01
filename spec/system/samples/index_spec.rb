@@ -37,5 +37,9 @@ RSpec.feature "Sample Index", type: :system do
       end
       expect(current_path).to eq "/templates/#{template.id}/samples/#{sample.id}/edit"
     end
+    scenario "新規作成ページに遷移できる", js: true do
+      click_on "新規作成"
+      expect(current_path).to eq "/templates/#{template.id}/samples/new"
+    end
   end
 end

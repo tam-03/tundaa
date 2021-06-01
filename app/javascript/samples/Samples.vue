@@ -9,7 +9,7 @@
     >
       <v-btn
         class="ma-10"
-        to="/templates/:template_id/samples/new"
+        :to="`/templates/${$route.params.template_id}/samples/new`"
       >
         新規作成
       </v-btn>

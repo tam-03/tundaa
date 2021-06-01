@@ -13,6 +13,8 @@ import Templates from './templates/Templates'
 import NewTemplate from './templates/NewTemplate'
 import EditTemplate from './templates/EditTemplate'
 import Samples from './samples/Samples'
+import Sample from './samples/Sample'
+import EditSample from './samples/EditSample'
 
 Vue.use(VueRouter)
 
@@ -129,6 +131,28 @@ export default new VueRouter({
     {
       path: "/templates/:template_id/samples",
       component: Samples,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/templates/:template_id/samples/:id",
+      component: Sample,
+      beforeEnter(to, from, next) {
+        if (store.getters.token) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
+    },
+    {
+      path: "/templates/:template_id/samples/:id/edit",
+      component: EditSample,
       beforeEnter(to, from, next) {
         if (store.getters.token) {
           next()

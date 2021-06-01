@@ -302,5 +302,52 @@ export default new Vuex.Store({
         commit('updateSamples', response.data.samples)
       })
     },
+    getSample({ commit, state }, getSampleData) {
+      axios.get(`${getSampleData.template_id}/samples/${getSampleData.id}.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(response => {
+        commit('updateSample', response.data)
+      })
+    },
+    editSample({ state, dispatch }, editSampleData) {
+      axios.patch(`${editSampleData.template_id}/samples/${editSampleData.id}.json`, {
+        title: editSampleData.title,
+        body: editSampleData.body
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        router.push(`/templates/${editSampleData.template_id}/samples`)
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "編集を保存しました"
+      })
+    },
+    deleteSample({ state, dispatch }, deleteSampleData) {
+      axios.delete(`${deleteSampleData.template_id}/samples/${deleteSampleData.id}.json`, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        router.push(`/templates/${deleteSampleData.template_id}/samples`)
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "削除しました"
+      })
+    },
   }
 })

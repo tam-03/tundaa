@@ -59,5 +59,27 @@ RSpec.feature "Home", type: :system do
       end
       expect(page).to have_content("テンプレートの内容 3")
     end
+    scenario "テンプレート一覧に遷移できない", js: true do
+      visit home_path
+      expect(page).to_not have_content("テンプレート一覧")
+    end
+  end
+
+  context "管理者の場合" do
+    let(:bob) { create(:user, email: "alice@example.com", password: "testtest", admin: true) }
+    before do
+      visit login_path
+      expect(current_path).to eq "/login"
+      fill_in "email", with: bob.email
+      fill_in "password", with: bob.password
+      within "#login" do
+        click_button "ログイン"
+      end
+    end
+    scenario "テンプレート一覧が見れる", js: true do
+      visit home_path
+      click_button "テンプレート一覧"
+      expect(current_path).to eq "/templates"
+    end
   end
 end

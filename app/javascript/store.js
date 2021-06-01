@@ -302,6 +302,26 @@ export default new Vuex.Store({
         commit('updateSamples', response.data.samples)
       })
     },
+    saveSample({ state, dispatch }, saveSampleData) {
+      axios.post(`${saveSampleData.template_id}/samples.json`, {
+        title: saveSampleData.title,
+        body: saveSampleData.body,
+        template_id: saveSampleData.template_id
+      }, {
+        headers: {
+          'access-token': state.token,
+          uid: state.uid,
+          client: state.client
+        },
+        baseURL: '/api/templates/'
+      }).then(() => {
+        router.push(`/templates/${saveSampleData.template_id}/samples`)
+      })
+      dispatch('setAlert', {
+        type: "success",
+        message: "保存しました"
+      })
+    },
     getSample({ commit, state }, getSampleData) {
       axios.get(`${getSampleData.template_id}/samples/${getSampleData.id}.json`, {
         headers: {

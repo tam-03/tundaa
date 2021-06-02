@@ -10,6 +10,7 @@ export default new Vuex.Store({
     token: null,
     uid: null,
     client: null,
+    admin: null,
     questions: null,
     question: null,
     alertType: null,
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     token: state => state.token,
     uid: state => state.uid,
     client: state => state.client,
+    admin: state => state.admin,
     questions: state => state.questions,
     question: state => state.question,
     alertType: state => state.alertType,
@@ -41,6 +43,9 @@ export default new Vuex.Store({
     },
     updateclient(state, client) {
       state.client = client
+    },
+    updateAdmin(state, admin) {
+      state.admin = admin
     },
     updateQuestions(state, questions) {
       state.questions = questions
@@ -84,6 +89,7 @@ export default new Vuex.Store({
         commit('updateToken', token)
         commit('updateUid', uid)
         commit('updateclient', client)
+        commit('updateAdmin', response.data.data.admin)
       })
     },
     login({ commit, dispatch }, authData) {
@@ -94,6 +100,7 @@ export default new Vuex.Store({
         commit('updateToken', response.headers['access-token'])
         commit('updateUid', response.headers['uid'])
         commit('updateclient', response.headers['client'])
+        commit('updateAdmin', response.data.data.admin)
         localStorage.setItem('token', response.headers['access-token'])
         localStorage.setItem('uid', response.headers['uid'])
         localStorage.setItem('client', response.headers['client'])
@@ -133,6 +140,7 @@ export default new Vuex.Store({
         commit('updateToken', null)
         commit('updateUid', null)
         commit('updateclient', null)
+        commit('updateAdmin', null)
         localStorage.removeItem('token')
         localStorage.removeItem('uid')
         localStorage.removeItem('client')

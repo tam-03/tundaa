@@ -44,6 +44,18 @@
       </router-link>
     </template>
     <template v-else>
+      <template v-if="isAdmin">
+        <router-link
+          to="/templates"
+          class="text-decoration-none"
+        >
+          <v-btn
+            text
+          >
+            テンプレート一覧
+          </v-btn>
+        </router-link>
+      </template>
       <router-link
         to="/questions"
         class="text-decoration-none"
@@ -52,16 +64,6 @@
           text
         >
           質問一覧
-        </v-btn>
-      </router-link>
-      <router-link
-        to="/templates"
-        class="text-decoration-none"
-      >
-        <v-btn
-          text
-        >
-          テンプレート
         </v-btn>
       </router-link>
       <v-btn
@@ -80,7 +82,10 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.token !== null
-    }
+    },
+    isAdmin() {
+      return this.$store.getters.admin
+    },
   },
   methods: {
     logout() {

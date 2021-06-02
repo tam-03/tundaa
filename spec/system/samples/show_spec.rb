@@ -3,8 +3,29 @@
 require "rails_helper"
 
 RSpec.feature "Sample show", type: :system do
+  context "認証なしのユーザーの場合" do
+    scenario "homeにリダイレクトされる", js: true do
+      visit templates_path
+      expect(current_path).to eq "/home"
+    end
+  end
   context "認証ありのユーザーの場合" do
-    let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }
+    let(:bob) { create(:user, email: "bob@example.com", password: "testtest") }
+    before do
+      visit login_path
+      fill_in "email", with: bob.email
+      fill_in "password", with: bob.password
+      within "#login" do
+        click_button "ログイン"
+      end
+    end
+    scenario "homeにリダイレクトされる", js: true do
+      visit templates_path
+      expect(current_path).to eq "/home"
+    end
+  end
+  context "管理者の場合" do
+    let(:alice) { create(:user, email: "alice@example.com", password: "testtest", admin: true) }
     let(:template) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
     before do
       create(:sample, title: "Markdownが分からない", body: "## linkが分からない", template_id: template.id)

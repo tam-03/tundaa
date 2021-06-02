@@ -100,10 +100,10 @@ export default new VueRouter({
       path: "/templates",
       component: Templates,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },
@@ -111,10 +111,10 @@ export default new VueRouter({
       path: "/templates/new",
       component: NewTemplate,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },
@@ -122,10 +122,10 @@ export default new VueRouter({
       path: "/templates/:id/edit",
       component: EditTemplate,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },
@@ -133,10 +133,10 @@ export default new VueRouter({
       path: "/templates/:template_id/samples",
       component: Samples,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },
@@ -144,10 +144,10 @@ export default new VueRouter({
       path: "/templates/:template_id/samples/new",
       component: NewSample,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },
@@ -155,10 +155,10 @@ export default new VueRouter({
       path: "/templates/:template_id/samples/:id",
       component: Sample,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },
@@ -166,10 +166,10 @@ export default new VueRouter({
       path: "/templates/:template_id/samples/:id/edit",
       component: EditSample,
       beforeEnter(to, from, next) {
-        if (store.getters.token) {
+        if (store.getters.admin) {
           next()
         } else {
-          next('/login')
+          next('/home')
         }
       }
     },

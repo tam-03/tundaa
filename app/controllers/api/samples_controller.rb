@@ -2,6 +2,7 @@
 
 class API::SamplesController < API::BaseController
   before_action :authenticate_api_user!
+  before_action :require_admin_login, except: %i[index show]
   before_action :set_sample, only: %i[show update destroy]
   protect_from_forgery except: %i[create update]
 

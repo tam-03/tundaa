@@ -30,7 +30,7 @@ RSpec.describe "Sample API", type: :request do
 
     context "認証有りのユーザーの場合" do
       let(:auth_tokens) { alice.create_new_auth_token }
-      it "サンプルの一覧を取得出来る" do
+      it "例文の一覧を取得出来る" do
         get api_template_samples_path(template_1.id), headers: auth_tokens, as: :json
         expect(response).to have_http_status(200)
 
@@ -51,6 +51,7 @@ RSpec.describe "Sample API", type: :request do
 
   describe "POST api/templates/:template_id/samples" do
     let(:alice) { create(:user, name: "Alice") }
+    let(:bob) { create(:user, name: "Bob", admin: true) }
     let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
     let(:sample) { build(:sample, title: "Markdownが分からない", body: "## linkが分からない", template_id: template_1.id) }
     context "認証無しのユーザーの場合" do
@@ -63,7 +64,14 @@ RSpec.describe "Sample API", type: :request do
     end
     context "認証有りのユーザーの場合" do
       let(:auth_tokens) { alice.create_new_auth_token }
-      it "サンプルの新規作成が出来る" do
+      it "401 Unauthorizedを返す" do
+        post api_template_samples_path(template_1.id), params: sample, headers: auth_tokens, as: :json
+        expect(response).to have_http_status(401)
+      end
+    end
+    context "管理者の場合" do
+      let(:auth_tokens) { bob.create_new_auth_token }
+      it "例文の新規作成が出来る" do
         expect { post api_template_samples_path(template_1.id), params: sample, headers: auth_tokens, as: :json }.to change { Template.count }.by(1)
         expect(response).to have_http_status(201)
 
@@ -89,7 +97,7 @@ RSpec.describe "Sample API", type: :request do
     end
     context "認証有りのユーザーの場合" do
       let(:auth_tokens) { alice.create_new_auth_token }
-      it "サンプルを取得出来る" do
+      it "例文を取得出来る" do
         get api_template_sample_path(template_1.id, sample.id), headers: auth_tokens, as: :json
         expect(response).to have_http_status(200)
         res = JSON.parse(response.body)
@@ -102,6 +110,7 @@ RSpec.describe "Sample API", type: :request do
 
   describe "PATCH api/templates/:template_id/samples/:id" do
     let(:alice) { create(:user, name: "Alice") }
+    let(:bob) { create(:user, name: "Bob", admin: true) }
     let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
     let(:sample) { create(:sample, title: "Markdownが分からない", body: "## linkが分からない", template_id: template_1.id) }
     context "認証無しのユーザーの場合" do
@@ -114,7 +123,14 @@ RSpec.describe "Sample API", type: :request do
     end
     context "認証有りのユーザーの場合" do
       let(:auth_tokens) { alice.create_new_auth_token }
-      it "テンプレートの編集が出来る" do
+      it "401 Unauthorizedを返す" do
+        patch api_template_sample_path(template_1.id, sample.id), params: { title: "Linuxが分からない", body: "## Permissionのエラーが出る" }, headers: auth_tokens, as: :json
+        expect(response).to have_http_status(401)
+      end
+    end
+    context "管理者の場合" do
+      let(:auth_tokens) { bob.create_new_auth_token }
+      it "例文の編集が出来る" do
         patch api_template_sample_path(template_1.id, sample.id), params: { title: "Linuxが分からない", body: "## Permissionのエラーが出る" }, headers: auth_tokens, as: :json
         expect(response).to have_http_status(200)
 
@@ -127,6 +143,7 @@ RSpec.describe "Sample API", type: :request do
 
   describe "DELETE api/templates/:template_id/samples/:id" do
     let(:alice) { create(:user, name: "Alice") }
+    let(:bob) { create(:user, name: "Bob", admin: true) }
     let(:template_1) { create(:template, title: "何が分からないか分かっている", body: "## 困っていること") }
     before do
       create(:sample, title: "Javascriptが分からない", body: "## thisが分からない", template_id: template_1.id)
@@ -134,7 +151,7 @@ RSpec.describe "Sample API", type: :request do
       create(:sample, title: "Rubyが分からない", body: "## 条件分岐が分からない", template_id: template_1.id)
     end
     context "認証無しのユーザーの場合" do
-      it "テンプレートを削除出来ない" do
+      it "例文を削除出来ない" do
         delete_sample = Sample.find_by(title: "Javascriptが分からない")
         delete api_template_sample_path(template_1.id, delete_sample.id), as: :json
         expect(response).to have_http_status(401)
@@ -144,11 +161,19 @@ RSpec.describe "Sample API", type: :request do
     end
     context "認証有りのユーザーの場合" do
       let(:auth_tokens) { alice.create_new_auth_token }
-      it "テンプレートを削除出来る" do
+      it "401 Unauthorizedを返す" do
+        delete_sample = Sample.find_by(title: "Javascriptが分からない")
+        delete api_template_sample_path(template_1.id, delete_sample.id), headers: auth_tokens, as: :json
+        expect(response).to have_http_status(401)
+      end
+    end
+    context "管理者の場合" do
+      let(:auth_tokens) { bob.create_new_auth_token }
+      it "例文を削除出来る" do
         delete_sample = Sample.find_by(title: "Javascriptが分からない")
         expect(Sample.count).to eq 3
         delete api_template_sample_path(template_1.id, delete_sample.id), headers: auth_tokens, as: :json
-        expect(response.status).to eq 204
+        expect(response).to have_http_status(204)
         expect(Sample.count).to eq 2
       end
     end

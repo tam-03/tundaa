@@ -18,25 +18,25 @@
           class="pa-2"
           elevation="2"
           shaped
-          :disabled="!isAuthenticated && template.id !== 1 ? disabled : !disabled"
+          :disabled="!isAuthenticated && !template.free ? disabled : !disabled"
           :class="`template-${template.id}`"
         >
           <v-icon
             x-large
             left
           >
-            {{ template.icon }}
+            {{ icons[template.id - 1] }}
           </v-icon>
           <v-card-title>{{ template.title }}</v-card-title>
           <v-card-text>
-            {{ template.body }}
+            <pre>{{ template.body }}</pre>
           </v-card-text>
           <v-card-actions>
             <router-link
               to="/questions/new"
               class="text-decoration-none"
             >
-              <temmplate v-if="!isAuthenticated && template.id !== 1">
+              <temmplate v-if="!isAuthenticated && !template.free">
                 <v-btn
                   color="orange lighten-1 accent-4"
                   text
@@ -64,46 +64,32 @@
 </template>
 
 <script>
+
 export default {
-  beforeRouteEnter(to, from, next) {
-    next(vm => vm.getTemplates())
-  },
   data() {
     return {
-      templates: [
-        {
-          "id": 1,
-          "title": "何が分からないか分かっている",
-          "body": 'テンプレートの内容 1',
-          "icon": "mdi-emoticon-happy-outline",
-        },
-        {
-          "id": 2,
-          "title": "何が分からないか分からない",
-          "body": "テンプレートの内容 2",
-          "icon": "mdi-emoticon-confused-outline",
-        },
-        {
-          "id": 3,
-          "title": "もう何も分からない",
-          "body": "テンプレートの内容 3",
-          "icon": "mdi-emoticon-dead-outline",
-        }
+      disabled: true,
+      icons: [
+        "mdi-emoticon-happy-outline",
+        "mdi-emoticon-confused-outline",
+        "mdi-emoticon-dead-outline",
       ],
-      disabled: true
     }
   },
   computed: {
     isAuthenticated() {
       return this.$store.getters.token !== null
     },
-    // templates() {
-    //    return this.$store.getters.templates
-    // }
+    templates() {
+      return this.$store.getters.templates
+    }
+  },
+  created() {
+    this.getTemplates()
   },
   methods: {
     getTemplates() {
-       this.$store.dispatch('getTemplates')
+      this.$store.dispatch('getTemplates')
     },
     passTemplate(template) {
       this.$store.dispatch('passTemplate', {

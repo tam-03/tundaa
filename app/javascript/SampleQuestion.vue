@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-tabs
       v-model="tab"
       background-color="transparent"
@@ -11,7 +11,7 @@
         :key="sample.id"
         :class="`sample-${sample.id}`"
       >
-        {{ sample.title }}
+        例文{{ sample.id }}
       </v-tab>
     </v-tabs>
 
@@ -23,6 +23,9 @@
         <v-card
           flat
         >
+          <v-card-title>
+            {{ sample.title }}
+          </v-card-title>
           <v-card-text>
             <markdown-it-vue
               class="md-body"
@@ -32,7 +35,7 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -44,14 +47,24 @@ export default {
     MarkdownItVue,
   },
   data () {
-      return {
-        tab: null,
-        samples: [
-          {id:1, title: "サンプル1", body: "サンプル1内容"},
-          {id:2, title: "サンプル2", body: "サンプル2内容"},
-          {id:3, title: "サンプル3", body: "サンプル3内容"},
-        ]
-      }
-    },
+    return {
+      tab: null,
+    }
+  },
+  computed: {
+    samples() {
+      return this.$store.getters.samples
+    }
+  },
+  created() {
+    this.getSample()
+  },
+  methods: {
+    getSample() {
+      this.$store.dispatch('getSamples', {
+        template_id: this.$route.query.template
+      })
+    }
+  },
 }
 </script>

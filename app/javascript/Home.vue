@@ -33,7 +33,7 @@
           </v-card-text>
           <v-card-actions>
             <router-link
-              to="/questions/new"
+              :to="`/questions/new/?template=${template.id}`"
               class="text-decoration-none"
             >
               <temmplate v-if="!isAuthenticated && !template.free">

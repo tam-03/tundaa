@@ -4,21 +4,28 @@ require "rails_helper"
 
 RSpec.feature "Home", type: :system do
   context "認証なしのユーザーの場合" do
+    before do
+      create(:template, title: "何が分からないか分かっている", body: "## 困っていること", free: true)
+      create(:template, title: "何が分からないか分からない", body: "## 作業手順")
+      create(:template, title: "もう何も分からない", body: "## ゴール")
+    end
     scenario "テンプレート1が作成できる", js: true do
+      template_1 = Template.find_by(title: "何が分からないか分かっている")
       visit home_path
       expect(page).to have_content("質問を作成する")
-      within ".template-1" do
+      within ".template-#{template_1.id}" do
         click_button "作成"
       end
-      expect(page).to have_content("テンプレートの内容 1")
+      expect(page).to have_content("困っていること")
     end
     scenario "テンプレート2と3が作成できない", js: true do
+      template_2 = Template.find_by(title: "何が分からないか分からない")
+      template_3 = Template.find_by(title: "もう何も分からない")
       visit home_path
-      expect(page).to have_content("質問を作成する")
-      within ".template-2" do
+      within ".template-#{template_2.id}" do
         expect(page).to_not have_content("作成")
       end
-      within ".template-3" do
+      within ".template-#{template_3.id}" do
         expect(page).to_not have_content("作成")
       end
     end
@@ -27,6 +34,9 @@ RSpec.feature "Home", type: :system do
   context "認証ありのユーザーの場合" do
     let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }
     before do
+      create(:template, title: "何が分からないか分かっている", body: "## 困っていること", free: true)
+      create(:template, title: "何が分からないか分からない", body: "## 作業手順")
+      create(:template, title: "もう何も分からない", body: "## ゴール")
       visit login_path
       expect(current_path).to eq "/login"
       fill_in "email", with: alice.email
@@ -36,28 +46,31 @@ RSpec.feature "Home", type: :system do
       end
     end
     scenario "テンプレート1が作成できる", js: true do
+      template_1 = Template.find_by(title: "何が分からないか分かっている")
       visit home_path
       expect(page).to have_content("質問を作成する")
-      within ".template-1" do
+      within ".template-#{template_1.id}" do
         click_button "作成"
       end
-      expect(page).to have_content("テンプレートの内容 1")
+      expect(page).to have_content("困っていること")
     end
     scenario "テンプレート2が作成できる", js: true do
+      template_2 = Template.find_by(title: "何が分からないか分からない")
       visit home_path
       expect(page).to have_content("質問を作成する")
-      within ".template-2" do
+      within ".template-#{template_2.id}" do
         click_button "作成"
       end
-      expect(page).to have_content("テンプレートの内容 2")
+      expect(page).to have_content("作業手順")
     end
     scenario "テンプレート3が作成できる", js: true do
+      template_3 = Template.find_by(title: "もう何も分からない")
       visit home_path
       expect(page).to have_content("質問を作成する")
-      within ".template-3" do
+      within ".template-#{template_3.id}" do
         click_button "作成"
       end
-      expect(page).to have_content("テンプレートの内容 3")
+      expect(page).to have_content("ゴール")
     end
     scenario "テンプレート一覧に遷移できない", js: true do
       visit home_path

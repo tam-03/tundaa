@@ -36,7 +36,7 @@
                 dark
                 small
                 color="orange lighten-1 accent-4"
-                :to="question.editUrl"
+                :to="`${question.editUrl}?template=${question.template_id}`"
               >
                 <v-icon dark>
                   mdi-pencil

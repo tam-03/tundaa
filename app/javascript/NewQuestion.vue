@@ -134,7 +134,8 @@ export default {
     saveQuestion() {
       this.$store.dispatch('saveQuestion', {
         title: this.title,
-        body: this.body
+        body: this.body,
+        template_id: this.$route.query.template
       })
       this.title = ''
       this.body = ''

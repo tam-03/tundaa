@@ -7,7 +7,7 @@ class API::TemplatesController < API::BaseController
   protect_from_forgery except: %i[create update]
 
   def index
-    @templates = Template.all
+    @templates = Template.all.order(:id)
   end
 
   def create

@@ -35,7 +35,7 @@ class API::QuestionsController < API::BaseController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :template_id)
   end
 
   def set_question

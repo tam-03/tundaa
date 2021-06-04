@@ -12,8 +12,9 @@ RSpec.feature "Question show", type: :system do
 
   context "認証ありのユーザーの場合" do
     let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }
+    let(:template) { create(:template) }
     before do
-      create(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice)
+      create(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice, template_id: template.id)
       visit login_path
       fill_in "email", with: alice.email
       fill_in "password", with: alice.password
@@ -34,7 +35,7 @@ RSpec.feature "Question show", type: :system do
     scenario "編集ページに遷移できる", js: true do
       question = Question.find_by(title: "Markdownが分からない")
       click_on "編集"
-      expect(current_path).to eq "/questions/#{question.id}/edit"
+      expect(page).to have_current_path("/questions/#{question.id}/edit/?template=#{template.id}")
       expect(page).to have_content("質問を編集")
     end
     scenario "質問の削除が出来る", js: true do

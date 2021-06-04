@@ -154,7 +154,8 @@ export default new Vuex.Store({
     saveQuestion({ state, dispatch }, questionData) {
       axios.post('/api/questions', {
         title: questionData.title,
-        body: questionData.body
+        body: questionData.body,
+        template_id: questionData.template_id,
       }, {
         headers: {
           'access-token': state.token,

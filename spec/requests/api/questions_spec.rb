@@ -6,11 +6,12 @@ RSpec.describe "Question API", type: :request do
   describe "GET api/questions" do
     let(:alice) { create(:user, name: "Alice") }
     let(:bob) { create(:user, name: "bob") }
+    let(:template) { create(:template) }
     before do
-      create(:question, title: "Markdownが分からない", user: alice)
-      create(:question, title: "Linuxが分からない", user: alice)
-      create(:question, title: "Railsが分からない", user: alice)
-      create(:question, title: "Javascriptが分からない", user: bob)
+      create(:question, title: "Markdownが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Linuxが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Railsが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Javascriptが分からない", user: bob, template_id: template.id)
     end
     context "認証無しのユーザーの場合" do
       it "エラーメッセージを返す" do
@@ -32,21 +33,25 @@ RSpec.describe "Question API", type: :request do
         question = res["questions"][0]
         expect(question["title"]).to eq "Railsが分からない"
         expect(question["user_id"]).to eq alice.id
+        expect(question["template_id"]).to eq template.id
 
         question = res["questions"][1]
         expect(question["title"]).to eq "Linuxが分からない"
         expect(question["user_id"]).to eq alice.id
+        expect(question["template_id"]).to eq template.id
 
         question = res["questions"][2]
         expect(question["title"]).to eq "Markdownが分からない"
         expect(question["user_id"]).to eq alice.id
+        expect(question["template_id"]).to eq template.id
       end
     end
   end
 
   describe "POST api/questions" do
     let(:alice) { create(:user, name: "Alice") }
-    let(:question) { build(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice) }
+    let(:template) { create(:template) }
+    let(:question) { build(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice, template_id: template.id) }
     context "認証無しのユーザーの場合" do
       it "エラーメッセージを返す" do
         post api_questions_path, params: question, as: :json
@@ -65,13 +70,15 @@ RSpec.describe "Question API", type: :request do
         expect(new_question.title).to eq "Markdownが分からない"
         expect(new_question.body).to eq "## linkが分からない"
         expect(new_question.user_id).to eq alice.id
+        expect(new_question.template_id).to eq template.id
       end
     end
   end
 
   describe "GET api/questions/:id" do
     let(:alice) { create(:user, name: "Alice") }
-    let(:question) { create(:question, title: "Linuxが分からない", user: alice) }
+    let(:template) { create(:template) }
+    let(:question) { create(:question, title: "Linuxが分からない", user: alice, template_id: template.id) }
     context "認証無しのユーザーの場合" do
       it "エラーメッセージを返す" do
         get api_question_path(question.id), as: :json
@@ -94,7 +101,8 @@ RSpec.describe "Question API", type: :request do
 
   describe "PATCH api/questions/:id" do
     let(:alice) { create(:user, name: "Alice") }
-    let(:question) { create(:question, title: "Railsが分からない", body: "## 条件分岐が分からない", user: alice) }
+    let(:template) { create(:template) }
+    let(:question) { create(:question, title: "Railsが分からない", body: "## 条件分岐が分からない", user: alice, template_id: template.id) }
     context "認証無しのユーザーの場合" do
       it "エラーメッセージを返す" do
         patch api_question_path(question.id), params: { title: "Railsのif文が分からない", body: "## elseの意味とは?" }, as: :json
@@ -113,19 +121,21 @@ RSpec.describe "Question API", type: :request do
         expect(edit_question.title).to eq "Railsのif文が分からない"
         expect(edit_question.body).to eq "## elseの意味とは?"
         expect(edit_question.user_id).to eq alice.id
+        expect(edit_question.template_id).to eq template.id
       end
     end
   end
 
   describe "DELETE api/questions/:id" do
     let(:alice) { create(:user, name: "Alice") }
-    let(:delete_question) { create(:question, title: "Javascriptが分からない", user: alice) }
+    let(:template) { create(:template) }
+    let(:delete_question) { create(:question, title: "Javascriptが分からない", user: alice, template_id: template.id) }
     before do
-      create(:question, title: "Markdownが分からない", user: alice)
-      create(:question, title: "Linuxが分からない", user: alice)
-      create(:question, title: "Railsが分からない", user: alice)
+      create(:question, title: "Markdownが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Linuxが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Railsが分からない", user: alice, template_id: template.id)
     end
-    let(:question) { create(:question, title: "Javascriptが分からない", user: alice) }
+    # let(:question) { create(:question, title: "Javascriptが分からない", user: alice, template_id: template.id) }
     context "認証無しのユーザーの場合" do
       it "質問を削除出来ない" do
         delete api_question_path(delete_question.id), as: :json

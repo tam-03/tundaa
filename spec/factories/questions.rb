@@ -5,5 +5,6 @@ FactoryBot.define do
     sequence(:title) { |n| "テスト#{n}" }
     sequence(:body) { |n| "テスト#{n}の内容" }
     user_id { 1 }
+    template_id { 1 }
   end
 end

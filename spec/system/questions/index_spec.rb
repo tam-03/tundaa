@@ -12,11 +12,12 @@ RSpec.feature "Question Index", type: :system do
 
   context "認証ありのユーザーの場合" do
     let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }
+    let(:template) { create(:template) }
     before do
-      create(:question, title: "Markdownが分からない", user: alice)
-      create(:question, title: "Linuxが分からない", user: alice)
-      create(:question, title: "Railsが分からない", user: alice)
-      create(:question, title: "Javascriptが分からない", user: alice)
+      create(:question, title: "Markdownが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Linuxが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Railsが分からない", user: alice, template_id: template.id)
+      create(:question, title: "Javascriptが分からない", user: alice, template_id: template.id)
       visit login_path
       fill_in "email", with: alice.email
       fill_in "password", with: alice.password

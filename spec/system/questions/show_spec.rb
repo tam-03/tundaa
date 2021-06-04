@@ -12,8 +12,9 @@ RSpec.feature "Question show", type: :system do
 
   context "認証ありのユーザーの場合" do
     let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }
+    let(:template) { create(:template) }
     before do
-      create(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice)
+      create(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice, template_id: template.id)
       visit login_path
       fill_in "email", with: alice.email
       fill_in "password", with: alice.password

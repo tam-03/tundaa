@@ -17,7 +17,7 @@
     <div class="text-center ma-10">
       <v-btn
         class="mr-4"
-        :to="question.editUrl"
+        :to="`${question.editUrl}/?template=${question.template_id}`"
       >
         編集
       </v-btn>

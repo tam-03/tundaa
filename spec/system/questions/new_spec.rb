@@ -12,6 +12,10 @@ RSpec.feature "Question New", type: :system do
         click_button "作成"
       end
     end
+    scenario "URLにテンプレートidのクエリが付与されている", js: true do
+      template = Template.find_by(title: "何が分からないか分かっている")
+      expect(page).to have_current_path("/questions/new/?template=#{template.id}")
+    end
     scenario "textareaにMarkdownを入力するとプレビューされる", js: true do
       fill_in "body", with: "## テスト"
       within "#preview_and_sample_area" do

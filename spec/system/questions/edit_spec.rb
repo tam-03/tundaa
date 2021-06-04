@@ -31,6 +31,11 @@ RSpec.feature "Question Edit", type: :system do
         find("#edit_question_btn").click
       end
     end
+    scenario "URLにテンプレートidのクエリが付与されている", js: true do
+      template = Template.find_by(title: "何が分からないか分かっている")
+      question = Question.find_by(title: "Rubyのif文が分からない")
+      expect(page).to have_current_path("/questions/#{question.id}/edit/?template=#{template.id}")
+    end
     scenario "編集前の質問が表示されている", js: true do
       expect(page).to have_field "タイトル", with: "Rubyのif文が分からない"
       within "#input_area" do

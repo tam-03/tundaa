@@ -12,6 +12,17 @@ $ rails db:create
 $ rails s -b 0.0.0.0
 ```
 
+## テスト
+```bash
+$ docker-compose exec web bin/rspec
+```
+
+### GUIでのシステムテスト
+```bash
+$ open vnc://localhost:5901# パスワード「secret」
+$ docker-compose exec web bin/rspec spec/system
+```
+
 ## 環境
 Ruby: 3.0.0
 

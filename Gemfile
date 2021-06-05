@@ -34,6 +34,8 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "devise"
 gem "devise_token_auth"
 gem "omniauth", "1.9.1"
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
 gem "rack-cors"
 gem "slim-rails"
 gem "html2slim"

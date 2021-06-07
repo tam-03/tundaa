@@ -17,6 +17,12 @@
         ログイン
       </v-btn>
     </form>
+    <v-btn
+      class="mr-4"
+      @click="gitHubLogin"
+    >
+      GitHubでログイン
+    </v-btn>
   </div>
 </template>
 
@@ -37,6 +43,9 @@
       })
       this.email = ''
       this.password = ''
+    },
+    gitHubLogin() {
+      this.$store.dispatch('gitHubLogin')
     }
   }
   }

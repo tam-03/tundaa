@@ -113,6 +113,15 @@ export default new Vuex.Store({
         })
       })
     },
+    gitHubLogin() {
+      axios.get('/api/auth/github').then((response) => {
+        console.log("成功です!!")
+        console.log(response)
+      }).catch((response) => {
+        console.log("エラーです")
+        console.log(response)
+      })
+    },
     register({ commit, dispatch }, authData) {
       axios.post('/api/auth/', {
         email: authData.email,

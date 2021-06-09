@@ -19,7 +19,7 @@
     </form>
     <v-btn
       class="mr-4"
-      href="/api/auth/github?auth_origin_url=http:/localhost:3000/oauth/github/callback"
+      :href="githubLoginUrl"
     >
       GitHubでログイン
     </v-btn>
@@ -32,7 +32,16 @@
   data () {
     return {
       email: '',
-      password:''
+      password:'',
+      github: {
+        url: '/api/auth/github',
+        redirectUrl: `${window.location.protocol}//${window.location.host}/oauth/github/callback`
+      }
+    }
+  },
+  computed: {
+    githubLoginUrl () {
+      return `${this.github.url}?auth_origin_url=${this.github.redirectUrl}`
     }
   },
   methods: {

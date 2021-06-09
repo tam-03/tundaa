@@ -19,7 +19,7 @@
     </form>
     <v-btn
       class="mr-4"
-      @click="gitHubLogin"
+      href="/api/auth/github?auth_origin_url=http:/localhost:3000/oauth/github/callback"
     >
       GitHubでログイン
     </v-btn>
@@ -44,9 +44,6 @@
       this.email = ''
       this.password = ''
     },
-    gitHubLogin() {
-      this.$store.dispatch('gitHubLogin')
-    }
   }
   }
 </script>

@@ -113,13 +113,16 @@ export default new Vuex.Store({
         })
       })
     },
-    gitHubLogin() {
-      axios.get('/api/auth/github').then((response) => {
-        console.log("成功です!!")
-        console.log(response)
-      }).catch((response) => {
-        console.log("エラーです")
-        console.log(response)
+    githubLogin({ dispatch }, oauthData) {
+      localStorage.setItem('token', oauthData.token)
+      localStorage.setItem('uid', oauthData.uid)
+      localStorage.setItem('client', oauthData.client)
+      dispatch('validateToken').then(() => {
+        router.push('/')
+        dispatch('setAlert', {
+          type: "success",
+          message: "ログインしました"
+        })
       })
     },
     register({ commit, dispatch }, authData) {

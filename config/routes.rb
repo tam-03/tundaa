@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "/templates/:template_id/samples", to: "top#index"
   get "/templates/:template_id/samples/:id", to: "top#index"
   get "/templates/:template_id/samples/:id/edit", to: "top#index"
+  get "/oauth/github/callback", to: "top#index"
   namespace "api" do
     mount_devise_token_auth_for "User", at: "auth"
     resources :questions, except: %i(new edit)

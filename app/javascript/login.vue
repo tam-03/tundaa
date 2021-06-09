@@ -16,13 +16,13 @@
       >
         ログイン
       </v-btn>
+      <v-btn
+        class="mr-4"
+        :href="githubLoginUrl"
+      >
+        GitHubでログイン
+      </v-btn>
     </form>
-    <v-btn
-      class="mr-4"
-      :href="githubLoginUrl"
-    >
-      GitHubでログイン
-    </v-btn>
   </div>
 </template>
 

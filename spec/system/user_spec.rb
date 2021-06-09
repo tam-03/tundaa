@@ -27,4 +27,19 @@ RSpec.feature "User", type: :system do
       expect(page).to have_content("ログインしました")
     end
   end
+  context "GitHubログイン" do
+    before do
+      github_mock
+    end
+    scenario "ログイン後にhomeにリダイレクトされる", js: true do
+      visit login_path
+      within "#login" do
+        click_on "GitHubでログイン"
+      end
+      sleep 1
+      visit current_path
+      expect(current_path).to eq "/home"
+      expect(page).to have_content("ログインしました")
+    end
+  end
 end

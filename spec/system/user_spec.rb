@@ -42,4 +42,21 @@ RSpec.feature "User", type: :system do
       expect(page).to have_content("ログインしました")
     end
   end
+  context "Googleログイン" do
+    before do
+      google_mock
+    end
+    scenario "ログイン後にhomeにリダイレクトされる", js: true do
+      visit login_path
+      within "#login" do
+        click_on "Googleでログイン"
+      end
+      sleep 1
+      visit current_path
+      expect(current_path).to eq "/home"
+      expect(page).to have_content("ログインしました")
+      google_login_user = User.find_by(provider: "google_oauth2")
+      expect(google_login_user.uid).to eq '123545'
+    end
+  end
 end

@@ -40,6 +40,8 @@ RSpec.feature "User", type: :system do
       visit current_path
       expect(current_path).to eq "/home"
       expect(page).to have_content("ログインしました")
+      github_login_user = User.find_by(provider: "github")
+      expect(github_login_user.uid).to eq '123545'
     end
   end
   context "Googleログイン" do

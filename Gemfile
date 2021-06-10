@@ -34,8 +34,8 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "devise"
 gem "devise_token_auth"
 gem "omniauth", "1.9.1"
-gem 'omniauth-github'
-gem 'omniauth-google-oauth2'
+gem "omniauth-github"
+gem "omniauth-google-oauth2"
 gem "rack-cors"
 gem "slim-rails"
 gem "html2slim"
@@ -45,7 +45,7 @@ group :development, :test do
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   gem "rspec-rails", "~> 5.0.0"
   gem "factory_bot_rails"
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
 end
 
 group :development do

@@ -44,6 +44,7 @@ RSpec.feature "Sample Edit", type: :system do
       end
     end
     scenario "編集前の例文が表示されている", js: true do
+      expect(current_path).to eq "/templates/#{sample.template_id}/samples/#{sample.id}/edit"
       expect(page).to have_field "タイトル", with: "Markdownが分からない"
       within "#input_area" do
         expect(page).to have_field "body", with: "## linkが分からない"
@@ -56,9 +57,9 @@ RSpec.feature "Sample Edit", type: :system do
       fill_in "タイトル", with: "Railsが分からない"
       fill_in "body", with: "## Strong Parameterでエラーが出る"
       click_button "編集を保存する"
-      expect(current_path).to eq "/templates/#{sample.template_id}/samples"
       expect(page).to have_content("編集を保存しました")
       expect(page).to have_content("Railsが分からない")
+      expect(current_path).to eq "/templates/#{sample.template_id}/samples"
       click_on "Railsが分からない"
       expect(page).to have_content("Railsが分からない")
       expect(page).to have_content("Strong Parameterでエラーが出る")

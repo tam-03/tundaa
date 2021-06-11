@@ -10,7 +10,7 @@ RSpec.feature "User", type: :system do
     fill_in "パスワード", with: "testtest"
     fill_in "パスワード(確認用)", with: "testtest"
     within "#register" do
-      click_button "登録"
+      click_button "サインアップ"
     end
     expect(page).to have_content("アカウント登録が完了しました")
   end

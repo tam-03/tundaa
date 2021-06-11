@@ -16,8 +16,8 @@ RSpec.feature "Question show", type: :system do
     before do
       create(:question, title: "Markdownが分からない", body: "## linkが分からない", user: alice, template_id: template.id)
       visit login_path
-      fill_in "email", with: alice.email
-      fill_in "password", with: alice.password
+      fill_in "メールアドレス", with: alice.email
+      fill_in "パスワード", with: alice.password
       within "#login" do
         click_button "ログイン"
       end

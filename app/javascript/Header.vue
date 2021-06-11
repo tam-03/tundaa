@@ -39,7 +39,7 @@
         class="text-decoration-none"
       >
         <v-btn text>
-          アカウント登録
+          サインアップ
         </v-btn>
       </router-link>
     </template>

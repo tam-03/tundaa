@@ -14,8 +14,8 @@ RSpec.feature "top", type: :system do
     let(:user) { create(:user) }
     before do
       visit login_path
-      fill_in "メールアドレス", with: user.email
-      fill_in "パスワード", with: user.password
+      fill_in "email", with: user.email
+      fill_in "password", with: user.password
       within "#login" do
         click_button "ログイン"
       end

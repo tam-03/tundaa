@@ -19,8 +19,8 @@ RSpec.feature "Question Index", type: :system do
       create(:question, title: "Railsが分からない", user: alice, template_id: template.id)
       create(:question, title: "Javascriptが分からない", user: alice, template_id: template.id)
       visit login_path
-      fill_in "メールアドレス", with: alice.email
-      fill_in "パスワード", with: alice.password
+      fill_in "email", with: alice.email
+      fill_in "password", with: alice.password
       within "#login" do
         click_button "ログイン"
       end

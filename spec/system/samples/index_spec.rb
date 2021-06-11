@@ -13,8 +13,8 @@ RSpec.feature "Sample Index", type: :system do
     let(:bob) { create(:user, email: "bob@example.com", password: "testtest") }
     before do
       visit login_path
-      fill_in "メールアドレス", with: bob.email
-      fill_in "パスワード", with: bob.password
+      fill_in "email", with: bob.email
+      fill_in "password", with: bob.password
       within "#login" do
         click_button "ログイン"
       end
@@ -32,8 +32,8 @@ RSpec.feature "Sample Index", type: :system do
       create(:sample, title: "Linuxが分からない", body: "## パーミッションエラーが出る", template_id: template.id)
       create(:sample, title: "Railsが分からない", body: "## Strong Parameterでエラーが出る", template_id: template.id)
       visit login_path
-      fill_in "メールアドレス", with: alice.email
-      fill_in "パスワード", with: alice.password
+      fill_in "email", with: alice.email
+      fill_in "password", with: alice.password
       within "#login" do
         click_button "ログイン"
       end

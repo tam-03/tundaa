@@ -16,8 +16,6 @@ import Samples from './samples/Samples'
 import NewSample from './samples/NewSample'
 import Sample from './samples/Sample'
 import EditSample from './samples/EditSample'
-import GitHubCallback from './oauth/GitHubCallback'
-import GoogleCallback from './oauth/GoogleCallback'
 
 Vue.use(VueRouter)
 
@@ -174,14 +172,6 @@ export default new VueRouter({
           next('/home')
         }
       }
-    },
-    {
-      path: "/oauth/github/callback",
-      component: GitHubCallback,
-    },
-    {
-      path: "/oauth/google/callback",
-      component: GoogleCallback,
     },
   ]
 })

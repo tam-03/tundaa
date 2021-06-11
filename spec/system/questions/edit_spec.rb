@@ -20,8 +20,8 @@ RSpec.feature "Question Edit", type: :system do
       create(:sample, title: "Railsが分からない", body: "## Strong Parameterでエラーが出る", template_id: template.id)
       create(:question, title: "Rubyのif文が分からない", body: "## 条件分岐が分からない\nelseの意味とは?", user: alice, template_id: template.id)
       visit login_path
-      fill_in "メールアドレス", with: alice.email
-      fill_in "パスワード", with: alice.password
+      fill_in "email", with: alice.email
+      fill_in "password", with: alice.password
       within "#login" do
         click_button "ログイン"
       end

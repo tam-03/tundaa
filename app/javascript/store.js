@@ -113,30 +113,6 @@ export default new Vuex.Store({
         })
       })
     },
-    githubLogin({ dispatch }, oauthData) {
-      localStorage.setItem('token', oauthData.token)
-      localStorage.setItem('uid', oauthData.uid)
-      localStorage.setItem('client', oauthData.client)
-      dispatch('validateToken').then(() => {
-        router.push('/')
-        dispatch('setAlert', {
-          type: "success",
-          message: "ログインしました"
-        })
-      })
-    },
-    googleLogin({ dispatch }, oauthData) {
-      localStorage.setItem('token', oauthData.token)
-      localStorage.setItem('uid', oauthData.uid)
-      localStorage.setItem('client', oauthData.client)
-      dispatch('validateToken').then(() => {
-        router.push('/')
-        dispatch('setAlert', {
-          type: "success",
-          message: "ログインしました"
-        })
-      })
-    },
     register({ commit, dispatch }, authData) {
       axios.post('/api/auth/', {
         email: authData.email,

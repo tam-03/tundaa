@@ -6,9 +6,9 @@ RSpec.feature "User", type: :system do
   scenario "登録", js: true do
     visit "/sign_up"
     expect(current_path).to eq "/sign_up"
-    fill_in "email", with: "alice@example.com"
-    fill_in "password", with: "testtest"
-    fill_in "password_confirmation", with: "testtest"
+    fill_in "メールアドレス", with: "alice@example.com"
+    fill_in "パスワード", with: "testtest"
+    fill_in "パスワード(確認用)", with: "testtest"
     within "#register" do
       click_button "登録"
     end
@@ -19,8 +19,8 @@ RSpec.feature "User", type: :system do
     scenario "ログイン", js: true do
       visit login_path
       expect(current_path).to eq "/login"
-      fill_in "email", with: alice.email
-      fill_in "password", with: alice.password
+      fill_in "メールアドレス", with: alice.email
+      fill_in "パスワード", with: alice.password
       within "#login" do
         click_button "ログイン"
       end

@@ -39,8 +39,8 @@ RSpec.feature "Home", type: :system do
       create(:template, title: "もう何も分からない", body: "## ゴール")
       visit login_path
       expect(current_path).to eq "/login"
-      fill_in "email", with: alice.email
-      fill_in "password", with: alice.password
+      fill_in "メールアドレス", with: alice.email
+      fill_in "パスワード", with: alice.password
       within "#login" do
         click_button "ログイン"
       end
@@ -85,8 +85,8 @@ RSpec.feature "Home", type: :system do
     before do
       visit login_path
       expect(current_path).to eq "/login"
-      fill_in "email", with: bob.email
-      fill_in "password", with: bob.password
+      fill_in "メールアドレス", with: bob.email
+      fill_in "パスワード", with: bob.password
       within "#login" do
         click_button "ログイン"
       end

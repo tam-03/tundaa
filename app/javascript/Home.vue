@@ -36,7 +36,7 @@
               :to="`/questions/new/?template=${template.id}`"
               class="text-decoration-none"
             >
-              <temmplate v-if="!isAuthenticated && !template.free">
+              <template v-if="!isAuthenticated && !template.free">
                 <v-btn
                   color="orange lighten-1 accent-4"
                   text
@@ -44,8 +44,8 @@
                 >
                   会員登録をするとご覧頂けます
                 </v-btn>
-              </temmplate>
-              <temmplate v-else>
+              </template>
+              <template v-else>
                 <v-btn
                   color="orange lighten-1 accent-4"
                   text
@@ -54,7 +54,7 @@
                 >
                   作成
                 </v-btn>
-              </temmplate>
+              </template>
             </router-link>
           </v-card-actions>
         </v-card>
@@ -66,6 +66,7 @@
 <script>
 
 export default {
+  name: 'Home',
   data() {
     return {
       disabled: true,

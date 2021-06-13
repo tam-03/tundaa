@@ -17,8 +17,8 @@ import Alert from './Alert'
 
 export default {
   components: {
-    'Header': Header,
-    'Alert': Alert
-  }
+    Header,
+    Alert,
+  },
 }
 </script>

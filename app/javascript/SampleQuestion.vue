@@ -18,7 +18,7 @@
     <v-tabs-items v-model="tab">
       <v-tab-item
         v-for="sample in samples"
-        :key="sample"
+        :key="sample.id"
       >
         <v-card
           flat

@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store'
-const Welcome = () => import(/* webpackChunkName: "Welcome" */ './Welcome')
-const Home = () => import(/* webpackChunkName: "Home" */ './Home')
-const Login = () => import(/* webpackChunkName: "Login" */ './login')
-const SignUp = () => import(/* webpackChunkName: "SignUp" */ './signup')
-const NewQuestion = () => import(/* webpackChunkName: "NewQuestion" */ './NewQuestion')
-const Questions = () => import(/* webpackChunkName: "Questions" */ './Questions')
-const Question = () => import(/* webpackChunkName: "Question" */ './Question')
-const EditQuestion = () => import(/* webpackChunkName: "EditQuestion" */ './EditQuestion')
-const Templates = () => import(/* webpackChunkName: "Templates" */ './templates/Templates')
-const NewTemplate = () => import(/* webpackChunkName: "NewTemplate" */ './templates/NewTemplate')
-const EditTemplate = () => import(/* webpackChunkName: "EditQuestion" */ './templates/EditTemplate')
-const Samples = () => import(/* webpackChunkName: "Samples" */ './samples/Samples')
-const NewSample = () => import(/* webpackChunkName: "NewSample" */ './samples/NewSample')
-const Sample = () => import(/* webpackChunkName: "Sample" */ './samples/Sample')
-const EditSample = () => import(/* webpackChunkName: "EditSample" */ './samples/EditSample')
-const GitHubCallback = () => import(/* webpackChunkName: "GitHubCallback" */ './oauth/GitHubCallback')
-const GoogleCallback = () => import(/* webpackChunkName: "GoogleCallback" */ './oauth/GoogleCallback')
+import Welcome from './Welcome'
+import Home from './Home'
+import Login from './login'
+import SignUp from './signup'
+import NewQuestion from './NewQuestion'
+import Questions from './Questions'
+import Question from './Question'
+import EditQuestion from './EditQuestion'
+import Templates from './templates/Templates'
+import NewTemplate from './templates/NewTemplate'
+import EditTemplate from './templates/EditTemplate'
+import Samples from './samples/Samples'
+import NewSample from './samples/NewSample'
+import Sample from './samples/Sample'
+import EditSample from './samples/EditSample'
+import GitHubCallback from './oauth/GitHubCallback'
+import GoogleCallback from './oauth/GoogleCallback'
 
 Vue.use(VueRouter)
 

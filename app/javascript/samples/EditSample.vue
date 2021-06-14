@@ -8,7 +8,7 @@
     <div class="text-center mr-16 ml-16">
       <v-text-field
         id="title"
-        v-model="sample.title"
+        v-model="(sample || '').title"
         label="タイトル"
         color="orange lighten-1 accent-4"
       />
@@ -20,7 +20,7 @@
       <v-col id="input_area">
         <v-textarea
           id="input_markdown"
-          v-model="sample.body"
+          v-model="(sample || '').body"
           name="body"
           rows="11"
           auto-grow
@@ -37,7 +37,7 @@
         >
           <markdown-it-vue
             class="md-body"
-            :content="sample.body"
+            :content="String((sample || '').body)"
           />
         </v-card>
       </v-col>
@@ -46,7 +46,7 @@
       <v-btn
         id="save_sample"
         color="orange lighten-1 accent-4"
-        :disabled="!isAuthenticated || sample.title == ''"
+        :disabled="!isAuthenticated || (sample || '').title == ''"
         outlined
         large
         @click="editSample"

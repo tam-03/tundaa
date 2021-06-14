@@ -104,9 +104,7 @@ export default new Vuex.Store({
         localStorage.setItem('token', response.headers['access-token'])
         localStorage.setItem('uid', response.headers['uid'])
         localStorage.setItem('client', response.headers['client'])
-        router.push('/').catch(err => {
-          console.info(err)
-        })
+        router.push('/home')
         dispatch('setAlert', {
           type: "success",
           message: "ログインしました"

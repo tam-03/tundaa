@@ -8,7 +8,7 @@
     <div class="text-center mr-16 ml-16">
       <v-text-field
         id="title"
-        v-model="question.title"
+        v-model="(question || '').title"
         label="タイトル"
         color="orange lighten-1 accent-4"
         :rules="[rules.required]"
@@ -27,7 +27,7 @@
         </label>
         <v-textarea
           id="input_markdown"
-          v-model="question.body"
+          v-model="(question || '').body"
           name="body"
           rows="11"
           auto-grow
@@ -67,7 +67,7 @@
           >
             <markdown-it-vue
               class="md-body"
-              :content="question.body"
+              :content="String((question || '').body)"
             />
           </v-card>
         </template>
@@ -86,7 +86,7 @@
       <v-btn
         id="save_question"
         color="orange lighten-1 accent-4"
-        :disabled="!isAuthenticated || question.title == ''"
+        :disabled="!isAuthenticated || (question || '').title == ''"
         outlined
         large
         @click="editQuestion"

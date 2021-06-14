@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="text-h3 text-center ma-5">
-      {{ question.title }}
+      {{ (question || '').title }}
     </div>
     <v-card
       id="markdown_preview"
@@ -10,14 +10,14 @@
       <v-card-text>
         <markdown-it-vue
           class="md-body"
-          :content="question.body"
+          :content="String((question || '').body)"
         />
       </v-card-text>
     </v-card>
     <div class="text-center ma-10">
       <v-btn
         class="mr-4"
-        :to="`${question.editUrl}/?template=${question.template_id}`"
+        :to="`${(question || '').editUrl}/?template=${(question || '').template_id}`"
       >
         編集
       </v-btn>

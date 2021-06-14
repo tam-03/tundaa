@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="text-h3 text-center ma-5">
-      {{ sample.title }}
+      {{ (sample || '').title }}
     </div>
     <v-card
       id="markdown_preview"
@@ -9,14 +9,14 @@
       <v-card-text>
         <markdown-it-vue
           class="md-body"
-          :content="sample.body"
+          :content="String((sample || '').body)"
         />
       </v-card-text>
     </v-card>
     <div class="text-center ma-10">
       <v-btn
         class="mr-4"
-        :to="sample.editUrl"
+        :to="(sample || '').editUrl"
       >
         編集
       </v-btn>

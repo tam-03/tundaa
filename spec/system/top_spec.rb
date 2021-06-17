@@ -7,7 +7,6 @@ RSpec.feature "top", type: :system do
     scenario "トップページはwelcomeになる", js: true do
       visit root_path
       expect(current_path).to eq "/"
-      expect(page).to have_content "welcome"
     end
   end
   context "認証有りのユーザーの場合" do

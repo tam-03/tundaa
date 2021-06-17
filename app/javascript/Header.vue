@@ -21,6 +21,7 @@
         class="text-decoration-none"
       >
         <v-btn
+          to="/home"
           text
         >
           今すぐ始める

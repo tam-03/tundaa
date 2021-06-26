@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 COPY Gemfile Gemfile.lock /tundaa/
 RUN bundle install
 COPY . .
-RUN  RAILS_ENV=production bundle exec rails assets:precompile \
+RUN SECRET_KEY_BASE=Rails.application.credentials.secret_key_base RAILS_ENV=production bundle exec rails assets:precompile \
   && yarn cache clean \
   && rm -f /tundaa/tmp/pids/server.pid \
   && rm -rf node_modules

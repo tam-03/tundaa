@@ -109,6 +109,11 @@ export default new Vuex.Store({
           type: "success",
           message: "ログインしました"
         })
+      }).catch(() => {
+        dispatch('setAlert', {
+          type: "error",
+          message: "ログインに失敗しました"
+        })
       })
     },
     githubLogin({ dispatch }, oauthData) {
@@ -121,6 +126,11 @@ export default new Vuex.Store({
           type: "success",
           message: "ログインしました"
         })
+      }).catch(() => {
+        dispatch('setAlert', {
+          type: "error",
+          message: "ログインに失敗しました"
+        })
       })
     },
     googleLogin({ dispatch }, oauthData) {
@@ -132,6 +142,11 @@ export default new Vuex.Store({
         dispatch('setAlert', {
           type: "success",
           message: "ログインしました"
+        })
+      }).catch(() => {
+        dispatch('setAlert', {
+          type: "error",
+          message: "ログインに失敗しました"
         })
       })
     },
@@ -147,7 +162,12 @@ export default new Vuex.Store({
         router.push('/')
         dispatch('setAlert', {
           type: "success",
-          message: "アカウント登録が完了しました"
+          message: "サインアップが完了しました"
+        })
+      }).catch(() => {
+        dispatch('setAlert', {
+          type: "error",
+          message: "サインアップに失敗しました"
         })
       })
     },

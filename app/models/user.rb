@@ -2,7 +2,6 @@
 
 class User < ApplicationRecord
   validates :email, presence: true
-  # validates :name, presence: true
 
   has_many :questions, dependent: :destroy
   # Include default devise modules.

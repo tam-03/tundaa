@@ -7,26 +7,29 @@ jobs:
     steps:
       - checkout
       - run:
-          name: docker-compose up --build -d
-          command: docker-compose up --build -d
-      - run:
-          name: sleep for waiting launch db
-          command: sleep 1
-      - run:
-          name: setup db
-          command: docker-compose exec web rails db:create db:migrate RAILS_ENV=test
-      - run:
-          name: setup yarn
-          command: docker-compose exec web bundle exec bin/yarn
-      - run:
-          name: rspec
-          command: docker-compose exec web bin/rspec
-      - run:
-          name: lint
-          command: docker-compose exec web bin/lint
-      - run:
-          name: docker-compose down
-          command: docker-compose down
+          name: ls
+          command: ls
+      # - run:
+      #     name: docker-compose up --build -d
+      #     command: docker-compose up --build -d
+      # - run:
+      #     name: sleep for waiting launch db
+      #     command: sleep 1
+      # - run:
+      #     name: setup db
+      #     command: docker-compose exec web rails db:create db:migrate RAILS_ENV=test
+      # - run:
+      #     name: setup yarn
+      #     command: docker-compose exec web bundle exec bin/yarn
+      # - run:
+      #     name: rspec
+      #     command: docker-compose exec web bin/rspec
+      # - run:
+      #     name: lint
+      #     command: docker-compose exec web bin/lint
+      # - run:
+      #     name: docker-compose down
+      #     command: docker-compose down
   deploy:
     machine:
       image: ubuntu-2004:202104-01
@@ -57,9 +60,6 @@ jobs:
           name: push AWS ECR
           command: docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest
       - run:
-          name: create database_password.txt
-          command: echo $DATABASE_PASSWORD > database_password.txt
-      - run:
           name: install docker-compose cli
           command: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
       - run:
@@ -69,14 +69,11 @@ jobs:
           name: use tundaa context
           command: docker context use tundaa
       - run:
-          name: deploy ecs
-          command: docker compose --file docker-compose.prod.yml up
-      - run:
           name: docker compose ps
           command: docker compose ps
       - run:
-          name: docker compose log
-          command: docker compose logs
+          name: deploy ecs
+          command: docker compose down
 
 workflows:
   version: 2
@@ -86,6 +83,6 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: main
+          # filters:
+          #   branches:
+          #     only: main

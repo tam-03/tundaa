@@ -36,3 +36,4 @@ yarn-debug.log*
 .yarn-integrity
 .env
 database_password.txt
+deploy.sh

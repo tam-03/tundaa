@@ -1,5 +1,8 @@
-version: '3'
+version: '3.9'
 x-aws-vpc: "vpc-049300cf423e2a4bc"
+x-aws-cluster: tundaa
+x-aws-loadbalancer: tunda-LoadB-1FOVYMG3TDZ7M
+
 services:
   web:
     build: .
@@ -18,11 +21,17 @@ services:
       - TUNDAA_DATABASE_PASSWORD
     depends_on:
       - db
+    deploy:
+      update_config:
+        parallelism: 0
   db:
     image: postgres
     environment:
       - 'POSTGRES_USER=tundaa'
       - POSTGRES_PASSWORD=/run/secrets/database_password.txt
+    deploy:
+      update_config:
+        parallelism: 0
     secrets:
       - TUNDAA_DATABASE_PASSWORD
 secrets:

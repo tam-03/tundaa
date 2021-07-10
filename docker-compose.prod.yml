@@ -22,6 +22,7 @@ services:
     depends_on:
       - db
     deploy:
+      replicas: 1
       update_config:
         parallelism: 0
   db:
@@ -30,6 +31,7 @@ services:
       - 'POSTGRES_USER=tundaa'
       - POSTGRES_PASSWORD=/run/secrets/database_password.txt
     deploy:
+      replicas: 1
       update_config:
         parallelism: 0
     secrets:

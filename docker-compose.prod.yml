@@ -1,8 +1,5 @@
 version: '3.9'
 x-aws-vpc: "vpc-049300cf423e2a4bc"
-x-aws-cluster: tundaa
-x-aws-loadbalancer: tunda-LoadB-1FOVYMG3TDZ7M
-
 services:
   web:
     build: .
@@ -25,6 +22,8 @@ services:
       replicas: 1
       update_config:
         parallelism: 0
+        x-aws-min_percent: 50
+        x-aws-max_percent: 200
   db:
     image: postgres
     environment:
@@ -34,6 +33,8 @@ services:
       replicas: 1
       update_config:
         parallelism: 0
+        x-aws-min_percent: 50
+        x-aws-max_percent: 200
     secrets:
       - TUNDAA_DATABASE_PASSWORD
 secrets:

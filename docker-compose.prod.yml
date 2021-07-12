@@ -1,13 +1,13 @@
-version: '3'
+version: '3.9'
 x-aws-vpc: "vpc-049300cf423e2a4bc"
 services:
   web:
     build: .
     image: 677642048886.dkr.ecr.ap-northeast-1.amazonaws.com/tundaa:latest
     command: /bin/sh -c "bundle exec rails db:create db:migrate db:seed RAILS_ENV=production &&
-             bundle exec rails s -p 3000 -b '0.0.0.0'"
+             bundle exec rails s -p 80 -b '0.0.0.0'"
     ports:
-      - '3000:3000'
+      - '80:80'
     environment:
       - 'RAILS_ENV=production'
       - 'RAILS_SERVE_STATIC_FILES=true'
@@ -19,11 +19,23 @@ services:
       - TUNDAA_DATABASE_PASSWORD
     depends_on:
       - db
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 0
+        x-aws-min_percent: 50
+        x-aws-max_percent: 200
   db:
     image: postgres
     environment:
       - 'POSTGRES_USER=tundaa'
       - POSTGRES_PASSWORD=/run/secrets/database_password.txt
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 0
+        x-aws-min_percent: 50
+        x-aws-max_percent: 200
     secrets:
       - TUNDAA_DATABASE_PASSWORD
 secrets:

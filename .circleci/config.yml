@@ -6,27 +6,27 @@ jobs:
       image: ubuntu-2004:202104-01
     steps:
       - checkout
-      # - run:
-      #     name: docker-compose up --build -d
-      #     command: docker-compose up --build -d
-      # - run:
-      #     name: sleep for waiting launch db
-      #     command: sleep 1
-      # - run:
-      #     name: setup db
-      #     command: docker-compose exec web rails db:create db:migrate RAILS_ENV=test
-      # - run:
-      #     name: setup yarn
-      #     command: docker-compose exec web bundle exec bin/yarn
-      # - run:
-      #     name: rspec
-      #     command: docker-compose exec web bin/rspec
-      # - run:
-      #     name: lint
-      #     command: docker-compose exec web bin/lint
-      # - run:
-      #     name: docker-compose down
-      #     command: docker-compose down
+      - run:
+          name: docker-compose up --build -d
+          command: docker-compose up --build -d
+      - run:
+          name: sleep for waiting launch db
+          command: sleep 1
+      - run:
+          name: setup db
+          command: docker-compose exec web rails db:create db:migrate RAILS_ENV=test
+      - run:
+          name: setup yarn
+          command: docker-compose exec web bundle exec bin/yarn
+      - run:
+          name: rspec
+          command: docker-compose exec web bin/rspec
+      - run:
+          name: lint
+          command: docker-compose exec web bin/lint
+      - run:
+          name: docker-compose down
+          command: docker-compose down
   deploy:
     machine:
       image: ubuntu-2004:202104-01
@@ -86,6 +86,6 @@ workflows:
       - deploy:
           requires:
             - build
-          # filters:
-          #   branches:
-          #     only: main
+          filters:
+            branches:
+              only: main

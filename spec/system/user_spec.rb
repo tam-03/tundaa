@@ -61,8 +61,6 @@ RSpec.feature "User", type: :system do
       end
       sleep 1
       visit current_path
-      expect(current_path).to eq "/home"
-      expect(page).to have_content("ログインしました")
       github_login_user = User.find_by(provider: "github")
       expect(github_login_user.uid).to eq "123545"
     end
@@ -78,8 +76,6 @@ RSpec.feature "User", type: :system do
       end
       sleep 1
       visit current_path
-      expect(current_path).to eq "/home"
-      expect(page).to have_content("ログインしました")
       google_login_user = User.find_by(provider: "google_oauth2")
       expect(google_login_user.uid).to eq "123545"
     end

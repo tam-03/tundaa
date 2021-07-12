@@ -10,46 +10,53 @@
         テンプレートを使ってみよう！
       </p>
     </div>
-    <v-row>
+    <v-row class="mb-16">
       <v-col>
         <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
           テンプレートから質問を作成
         </div>
-        <v-card>
+        <v-seet
+          class="d-flex justify-center"
+          color="orange lighten-1 accent-4"
+        >
           <img
             src="~create_template.png"
             height="200px"
           >
-        </v-card>
+        </v-seet>
       </v-col>
+    </v-row>
+    <v-row class="mb-16">
       <v-col>
         <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
           内容を1クリックでコピーして貼り付け
         </div>
-        <v-card>
+        <v-seet class="d-flex justify-center">
           <img
             src="~copy_markdown.png"
             height="200px"
           >
-        </v-card>
+        </v-seet>
       </v-col>
+    </v-row>
+    <v-row class="mb-16">
       <v-col>
         <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
           例文を見ながら作成 <span class="grey--text">(ログインユーザー限定)</span>
         </div>
-        <v-card>
+        <v-seet class="d-flex justify-center">
           <img
             src="~leading_sample.png"
             height="200px"
           >
-        </v-card>
+        </v-seet>
       </v-col>
     </v-row>
     <div class="d-flex justify-center ma-10">
       <v-btn
         to="/home"
-        text
         color="orange lighten-1 accent-4"
+        class="ma-2 white--text"
         x-large
       >
         tundaaを使ってみる

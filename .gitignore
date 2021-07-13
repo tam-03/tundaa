@@ -36,3 +36,7 @@ yarn-debug.log*
 .yarn-integrity
 .env
 database_password.txt
+github_key.txt
+github_secret.txt
+google_key.txt
+google_secret.txt

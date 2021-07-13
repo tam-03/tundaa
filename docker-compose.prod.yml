@@ -1,5 +1,7 @@
 version: '3.9'
 x-aws-vpc: "vpc-049300cf423e2a4bc"
+x-aws-cluster: project
+x-aws-loadbalancer: "proje-LoadB-1JLGPXNBU9381"
 services:
   web:
     build: .

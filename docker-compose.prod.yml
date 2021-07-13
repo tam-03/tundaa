@@ -5,7 +5,7 @@ x-aws-loadbalancer: "proje-LoadB-1JLGPXNBU9381"
 services:
   web:
     build: .
-    image: 677642048886.dkr.ecr.ap-northeast-1.amazonaws.com/tundaa:latest
+    image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest
     command: /bin/sh -c "bundle exec rails db:migrate RAILS_ENV=production &&
              bundle exec rails s -p 80 -b '0.0.0.0'"
     ports:
@@ -17,8 +17,16 @@ services:
       - 'RACK_ENV=production'
       - RAILS_MASTER_KEY=$RAILS_MASTER_KEY
       - TUNDAA_DATABASE_PASSWORD=/run/secrets/database_password.txt
+      - GITHUB_KEY=/run/secrets/github_key.txt
+      - GITHUB_SECRET=/run/secrets/github_secret.txt
+      - GOOGLE_KEY=/run/secrets/google_key.txt
+      - GOOGLE_SECRET=/run/secrets/google_secret.txt
     secrets:
       - TUNDAA_DATABASE_PASSWORD
+      - GITHUB_KEY
+      - GITHUB_SECRET
+      - GOOGLE_KEY
+      - GOOGLE_SECRET
     depends_on:
       - db
     deploy:
@@ -43,3 +51,11 @@ services:
 secrets:
   TUNDAA_DATABASE_PASSWORD:
     file: ./database_password.txt
+  GITHUB_KEY:
+    file: ./github_key.txt
+  GITHUB_SECRET:
+    file: ./github_secret.txt
+  GOOGLE_KEY:
+    file: ./google_key.txt
+  GOOGLE_SECRET:
+    file: ./google_secret.txt

@@ -60,6 +60,18 @@ jobs:
           name: create database_password.txt
           command: echo $DATABASE_PASSWORD > database_password.txt
       - run:
+          name: create github_key.txt
+          command: echo $GITHUB_KEY > github_key.txt
+      - run:
+          name: create github_secret.txt
+          command: echo $GITHUB_SECRET > github_secret.txt
+      - run:
+          name: create google_key.txt
+          command: echo $GOOGLE_KEY > google_key.txt
+      - run:
+          name: create google_secret.txt
+          command: echo $GOOGLE_SECRET > google_secret.txt
+      - run:
           name: install docker-compose cli
           command: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
       - run:

@@ -1,12 +1,10 @@
 version: '3.9'
 x-aws-vpc: "vpc-049300cf423e2a4bc"
-x-aws-cluster: project
-x-aws-loadbalancer: "proje-LoadB-YZG204ECXYER"
 services:
   web:
     build: .
     image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest
-    command: /bin/sh -c "bundle exec rails db:migrate RAILS_ENV=production &&
+    command: /bin/sh -c "bundle exec rails db:create db:migrate db:seed RAILS_ENV=production &&
              bundle exec rails s -p 80 -b '0.0.0.0'"
     ports:
       - '80:80'

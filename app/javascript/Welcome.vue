@@ -2,14 +2,12 @@
   <v-container
     fluid
   >
-    <div class="text-h3 text-center mb-15">
-      <p class="mb-10 lead-text">
-        質問の作成に困ったら
-      </p>
-      <p class="lead-text">
-        テンプレートを使ってみよう！
-      </p>
-    </div>
+    <h1 class="text-center logo">
+      Tundaa
+    </h1>
+    <p class="mb-10 lead-text">
+      質問の作成に困ったら<br>テンプレートを使ってみよう！
+    </p>
     <v-row class="mb-16">
       <v-col>
         <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
@@ -86,6 +84,13 @@ export default {
 .lead-text {
   letter-spacing: 5px;
   font-weight: 100;
+  text-align: center;
+  font-size: 35px;
+}
+.logo {
+  font-family: 'Fugaz One', cursive;
+  font-size: 100px;
+  color: #FFA726;
 }
 *{ text-transform: none !important; }
 </style>

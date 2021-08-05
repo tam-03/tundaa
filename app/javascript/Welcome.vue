@@ -1,5 +1,15 @@
 <template>
   <v-container>
+    <div class="d-flex justify-end">
+      <v-btn
+        to="/login"
+        color="orange lighten-1 accent-2"
+        class="white--text"
+        large
+      >
+        ログイン
+      </v-btn>
+    </div>
     <h1 class="text-center logo">
       Tundaa
     </h1>
@@ -77,7 +87,9 @@
             例文を見ながら作成
           </div>
           <p class="app-description">
-            どんなことを書いたら良いか分からない時には<br>例文タブからテンプレートを使った例文が見れる！
+            どんなことを書いたら良いか分からない時には<br>例文タブからテンプレートを使った例文が見れる！<br><router-link to="sign_up">
+              会員登録してこの機能を使う
+            </router-link>
           </p>
         </div>
       </v-col>

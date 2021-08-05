@@ -10,7 +10,7 @@
       to="/"
       class="text-decoration-none"
     >
-      <v-toolbar-title class="white--text">
+      <v-toolbar-title class="white--text logo">
         Tundaa
       </v-toolbar-title>
     </router-link>
@@ -68,5 +68,8 @@ export default {
 <style scoped>
 .header {
   display: none;
+}
+.logo {
+  font-family: 'Fugaz One', cursive;
 }
 </style>

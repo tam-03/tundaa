@@ -18,6 +18,8 @@ import Sample from './samples/Sample'
 import EditSample from './samples/EditSample'
 import GitHubCallback from './oauth/GitHubCallback'
 import GoogleCallback from './oauth/GoogleCallback'
+import Rules from './Rules'
+import PrivacyPolicy from './PrivacyPolicy'
 
 Vue.use(VueRouter)
 
@@ -182,6 +184,14 @@ export default new VueRouter({
     {
       path: "/oauth/google/callback",
       component: GoogleCallback,
+    },
+    {
+      path: "/rules",
+      component: Rules,
+    },
+    {
+      path: "/privacy_policy",
+      component: PrivacyPolicy,
     },
   ]
 })

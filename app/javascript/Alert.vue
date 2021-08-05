@@ -4,6 +4,7 @@
     max-width
     outlined
     style="border: none;"
+    :class="{alert: !isAuthenticated}"
   >
     <v-alert
       v-if="isAlert"
@@ -27,7 +28,16 @@ export default {
     },
     alertMessage () {
       return this.$store.getters.alertMessage
-    }
+    },
+    isAuthenticated() {
+      return this.$store.getters.token !== null
+    },
   }
 }
 </script>
+
+<style scoped>
+.alert {
+  display: none;
+}
+</style>

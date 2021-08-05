@@ -15,17 +15,6 @@ RSpec.feature "User", type: :system do
       end
       expect(page).to have_content("サインアップが完了しました")
     end
-    scenario "サインアップの失敗", js: true do
-      visit "/sign_up"
-      expect(current_path).to eq "/sign_up"
-      fill_in "メールアドレス", with: ""
-      fill_in "パスワード", with: ""
-      fill_in "パスワード(確認用)", with: ""
-      within "#register" do
-        click_button "サインアップ"
-      end
-      expect(page).to have_content("サインアップに失敗しました")
-    end
   end
   context "ログイン" do
     let(:alice) { create(:user, email: "alice@example.com", password: "testtest") }
@@ -38,16 +27,6 @@ RSpec.feature "User", type: :system do
         click_button "ログイン"
       end
       expect(page).to have_content("ログインしました")
-    end
-    scenario "ログインの失敗", js: true do
-      visit login_path
-      expect(current_path).to eq "/login"
-      fill_in "メールアドレス", with: alice.email
-      fill_in "パスワード", with: "test"
-      within "#login" do
-        click_button "ログイン"
-      end
-      expect(page).to have_content("ログインに失敗しました")
     end
   end
   context "GitHubログイン" do

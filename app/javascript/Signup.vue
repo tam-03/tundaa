@@ -60,6 +60,9 @@
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="show2 = !show2"
           />
+          <v-checkbox
+            label="利用規約に同意する"
+          />
         </div>
         <v-card-actions>
           <v-btn

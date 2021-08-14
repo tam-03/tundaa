@@ -1,22 +1,41 @@
 <template>
-  <v-container
-    fluid
-  >
-    <div class="text-h3 text-center mb-15">
-      <p class="mb-10 lead-text">
-        質問の作成に困ったら
-      </p>
-      <p class="lead-text">
-        テンプレートを使ってみよう！
-      </p>
+  <v-container>
+    <div class="d-flex justify-end">
+      <v-btn
+        to="/login"
+        color="orange lighten-1 accent-2"
+        class="white--text"
+        large
+      >
+        ログイン
+      </v-btn>
+    </div>
+    <h1 class="text-center logo">
+      Tundaa
+    </h1>
+    <p class="mb-10 lead-text">
+      質問の作成に困ったら<br>テンプレートを使ってみよう！
+    </p>
+    <div class="number mt-0 mb-10 mr-auto ml-auto">
+      1
     </div>
     <v-row class="mb-16">
-      <v-col>
-        <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
-          テンプレートから質問を作成
+      <v-col
+        class="d-flex justify-center align-end"
+        style="flex-direction: column;"
+      >
+        <div class="mb-5">
+          <div class="subtitle">
+            テンプレートから質問を作成
+          </div>
+          <p class="app-description">
+            分からないレベルに合わせてテンプレートを選択し<br>「作成」をクリック。 質問を作成してみよう！
+          </p>
         </div>
+      </v-col>
+      <v-col>
         <v-seet
-          class="d-flex justify-center"
+          class="d-flex justify-start"
           color="orange lighten-1 accent-4"
         >
           <img
@@ -26,12 +45,28 @@
         </v-seet>
       </v-col>
     </v-row>
+    <div class="number mt-0 mb-10 mr-auto ml-auto">
+      2
+    </div>
     <v-row class="mb-16">
-      <v-col>
-        <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
-          内容を1クリックでコピーして貼り付け
+      <v-col
+        class="d-flex justify-center align-end"
+        style="flex-direction: column;"
+      >
+        <div class="mb-5">
+          <div class="subtitle">
+            内容をワンクリックでコピー
+          </div>
+          <p class="app-description">
+            プレビューの枠をクリックするとMarkdownのコピーができる<br>各種ツールに貼り付けして使おう！
+          </p>
         </div>
-        <v-seet class="d-flex justify-center">
+      </v-col>
+      <v-col>
+        <v-seet
+          class="d-flex justify-start"
+          color="orange lighten-1 accent-4"
+        >
           <img
             src="~copy_markdown.png"
             height="200px"
@@ -39,12 +74,30 @@
         </v-seet>
       </v-col>
     </v-row>
+    <div class="number mt-0 mb-10 mr-auto ml-auto">
+      3
+    </div>
     <v-row class="mb-16">
-      <v-col>
-        <div class="text-subtitle-1 mb-5 text-center grey--text text--darken-2">
-          例文を見ながら作成 <span class="grey--text">(ログインユーザー限定)</span>
+      <v-col
+        class="d-flex justify-center align-end"
+        style="flex-direction: column;"
+      >
+        <div class="mb-5">
+          <div class="subtitle">
+            例文を見ながら作成
+          </div>
+          <p class="app-description">
+            どんなことを書いたら良いか分からない時には<br>例文タブからテンプレートを使った例文が見れる！<br><router-link to="sign_up">
+              会員登録してこの機能を使う
+            </router-link>
+          </p>
         </div>
-        <v-seet class="d-flex justify-center">
+      </v-col>
+      <v-col>
+        <v-seet
+          class="d-flex justify-start"
+          color="orange lighten-1 accent-4"
+        >
           <img
             src="~leading_sample.png"
             height="200px"
@@ -59,7 +112,7 @@
         class="ma-2 white--text"
         x-large
       >
-        tundaaを使ってみる
+        Tundaaを使ってみる
       </v-btn>
     </div>
   </v-container>
@@ -86,6 +139,33 @@ export default {
 .lead-text {
   letter-spacing: 5px;
   font-weight: 100;
+  text-align: center;
+  font-size: 35px;
+}
+.logo {
+  font-family: 'Fugaz One', cursive;
+  font-size: 100px;
+  color: #FFA726;
+}
+.number {
+  font-family: 'Fugaz One', cursive;
+  font-size: 20px;
+  color: white;
+  width: 50px;
+  height: 50px;
+  background-color: #FFA726;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subtitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: end;
+}
+.app-description {
+  text-align: left;
 }
 *{ text-transform: none !important; }
 </style>

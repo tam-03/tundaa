@@ -4,81 +4,50 @@
     dense
     dark
     app
+    :class="{header: !isAuthenticated}"
   >
     <router-link
       to="/"
       class="text-decoration-none"
     >
-      <v-toolbar-title class="white--text">
+      <v-toolbar-title class="white--text logo">
         Tundaa
       </v-toolbar-title>
     </router-link>
 
     <v-spacer />
-    <template v-if="!isAuthenticated">
+    <template v-if="isAdmin">
       <router-link
-        to="/"
+        to="/templates"
         class="text-decoration-none"
       >
         <v-btn
-          to="/home"
           text
         >
-          今すぐ始める
-        </v-btn>
-      </router-link>
-      <router-link
-        to="/login"
-        class="text-decoration-none"
-      >
-        <v-btn text>
-          ログイン
-        </v-btn>
-      </router-link>
-      <router-link
-        to="/sign_up"
-        class="text-decoration-none"
-      >
-        <v-btn text>
-          サインアップ
+          テンプレート一覧
         </v-btn>
       </router-link>
     </template>
-    <template v-else>
-      <template v-if="isAdmin">
-        <router-link
-          to="/templates"
-          class="text-decoration-none"
-        >
-          <v-btn
-            text
-          >
-            テンプレート一覧
-          </v-btn>
-        </router-link>
-      </template>
-      <router-link
-        to="/questions"
-        class="text-decoration-none"
-      >
-        <v-btn
-          text
-        >
-          質問一覧
-        </v-btn>
-      </router-link>
+    <router-link
+      to="/questions"
+      class="text-decoration-none"
+    >
       <v-btn
         text
-        @click="logout"
       >
-        ログアウト
+        質問一覧
       </v-btn>
-    </template>
+    </router-link>
+    <v-btn
+      text
+      @click="logout"
+    >
+      ログアウト
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
-
 export default {
   computed: {
     isAuthenticated() {
@@ -95,3 +64,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.header {
+  display: none;
+}
+.logo {
+  font-family: 'Fugaz One', cursive;
+}
+</style>

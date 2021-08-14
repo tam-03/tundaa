@@ -36,7 +36,7 @@
       >
         <v-col>
           <v-card
-            class="text-center d-flex justify-space-between align-center pa-5"
+            :class="`template-${template.id} text-center d-flex justify-space-between align-center pa-5`"
             :disabled="!isAuthenticated && !template.free"
           >
             <v-icon

@@ -23,7 +23,7 @@ RSpec.feature "top", type: :system do
       expect(page).to have_content "ログインしました"
       visit root_path
       expect(current_path).to eq home_path
-      expect(page).to have_content "質問を作成する"
+      expect(page).to have_content "あなたの状態に近いものはどれ？"
     end
   end
 end

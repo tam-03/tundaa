@@ -9,7 +9,7 @@ RSpec.feature "Question New", type: :system do
       template = Template.find_by(title: "何が分からないか分かっている")
       visit home_path
       within ".template-#{template.id}" do
-        click_button "作成"
+        click_button "選択"
       end
     end
     scenario "URLにテンプレートidのクエリが付与されている", js: true do
@@ -43,7 +43,7 @@ RSpec.feature "Question New", type: :system do
       template = Template.find_by(title: "何が分からないか分かっている")
       visit home_path
       within ".template-#{template.id}" do
-        click_button "作成"
+        click_button "選択"
       end
     end
     scenario "保存ができない", js: true do
@@ -70,7 +70,7 @@ RSpec.feature "Question New", type: :system do
       end
       visit home_path
       within ".template-#{template.id}" do
-        click_button "作成"
+        click_button "選択"
       end
     end
     scenario "テンプレート1を使った作成と保存が出来る", js: true do

@@ -12,9 +12,9 @@ RSpec.feature "Home", type: :system do
     scenario "テンプレート1が作成できる", js: true do
       template_1 = Template.find_by(title: "何が分からないか分かっている")
       visit home_path
-      expect(page).to have_content("質問を作成する")
+      expect(page).to have_content("あなたの状態に近いものはどれ？")
       within ".template-#{template_1.id}" do
-        click_button "作成"
+        click_button "選択"
       end
       expect(page).to have_content("困っていること")
     end
@@ -23,10 +23,10 @@ RSpec.feature "Home", type: :system do
       template_3 = Template.find_by(title: "もう何も分からない")
       visit home_path
       within ".template-#{template_2.id}" do
-        expect(page).to_not have_content("作成")
+        expect(page).to_not have_content("選択")
       end
       within ".template-#{template_3.id}" do
-        expect(page).to_not have_content("作成")
+        expect(page).to_not have_content("選択")
       end
     end
   end
@@ -48,27 +48,27 @@ RSpec.feature "Home", type: :system do
     scenario "テンプレート1が作成できる", js: true do
       template_1 = Template.find_by(title: "何が分からないか分かっている")
       visit home_path
-      expect(page).to have_content("質問を作成する")
+      expect(page).to have_content("あなたの状態に近いものはどれ？")
       within ".template-#{template_1.id}" do
-        click_button "作成"
+        click_button "選択"
       end
       expect(page).to have_content("困っていること")
     end
     scenario "テンプレート2が作成できる", js: true do
       template_2 = Template.find_by(title: "何が分からないか分からない")
       visit home_path
-      expect(page).to have_content("質問を作成する")
+      expect(page).to have_content("あなたの状態に近いものはどれ？")
       within ".template-#{template_2.id}" do
-        click_button "作成"
+        click_button "選択"
       end
       expect(page).to have_content("作業手順")
     end
     scenario "テンプレート3が作成できる", js: true do
       template_3 = Template.find_by(title: "もう何も分からない")
       visit home_path
-      expect(page).to have_content("質問を作成する")
+      expect(page).to have_content("あなたの状態に近いものはどれ？")
       within ".template-#{template_3.id}" do
-        click_button "作成"
+        click_button "選択"
       end
       expect(page).to have_content("ゴール")
     end

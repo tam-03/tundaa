@@ -6,27 +6,27 @@ jobs:
       image: ubuntu-2004:202104-01
     steps:
       - checkout
-      - run:
-          name: docker-compose up --build -d
-          command: docker-compose up --build -d
-      - run:
-          name: sleep for waiting launch db
-          command: sleep 1
-      - run:
-          name: setup db
-          command: docker-compose exec web rails db:create db:migrate RAILS_ENV=test
-      - run:
-          name: setup yarn
-          command: docker-compose exec web bundle exec bin/yarn
-      - run:
-          name: rspec
-          command: docker-compose exec web bin/rspec
-      - run:
-          name: lint
-          command: docker-compose exec web bin/lint
-      - run:
-          name: docker-compose down
-          command: docker-compose down
+      # - run:
+      #     name: docker-compose up --build -d
+      #     command: docker-compose up --build -d
+      # - run:
+      #     name: sleep for waiting launch db
+      #     command: sleep 1
+      # - run:
+      #     name: setup db
+      #     command: docker-compose exec web rails db:create db:migrate RAILS_ENV=test
+      # - run:
+      #     name: setup yarn
+      #     command: docker-compose exec web bundle exec bin/yarn
+      # - run:
+      #     name: rspec
+      #     command: docker-compose exec web bin/rspec
+      # - run:
+      #     name: lint
+      #     command: docker-compose exec web bin/lint
+      # - run:
+      #     name: docker-compose down
+      #     command: docker-compose down
   deploy:
     machine:
       image: ubuntu-2004:202104-01
@@ -50,27 +50,27 @@ jobs:
       - run:
           name: login AWS ECR
           command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - run:
-          name: build Dockerfile.prod
-          command: docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest -f Dockerfile.prod .
-      - run:
-          name: push AWS ECR
-          command: docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest
-      - run:
-          name: create database_password.txt
-          command: echo $DATABASE_PASSWORD > database_password.txt
-      - run:
-          name: create github_key.txt
-          command: echo $GITHUB_KEY > github_key.txt
-      - run:
-          name: create github_secret.txt
-          command: echo $GITHUB_SECRET > github_secret.txt
-      - run:
-          name: create google_key.txt
-          command: echo $GOOGLE_KEY > google_key.txt
-      - run:
-          name: create google_secret.txt
-          command: echo $GOOGLE_SECRET > google_secret.txt
+      # - run:
+      #     name: build Dockerfile.prod
+      #     command: docker build -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest -f Dockerfile.prod .
+      # - run:
+      #     name: push AWS ECR
+      #     command: docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tundaa:latest
+      # - run:
+      #     name: create database_password.txt
+      #     command: echo $DATABASE_PASSWORD > database_password.txt
+      # - run:
+      #     name: create github_key.txt
+      #     command: echo $GITHUB_KEY > github_key.txt
+      # - run:
+      #     name: create github_secret.txt
+      #     command: echo $GITHUB_SECRET > github_secret.txt
+      # - run:
+      #     name: create google_key.txt
+      #     command: echo $GOOGLE_KEY > google_key.txt
+      # - run:
+      #     name: create google_secret.txt
+      #     command: echo $GOOGLE_SECRET > google_secret.txt
       - run:
           name: install docker-compose cli
           command: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
@@ -82,13 +82,14 @@ jobs:
           command: docker context use tundaa
       - run:
           name: deploy ecs
-          command: docker compose --file docker-compose.prod.yml up --build
-      - run:
-          name: docker compose ps
-          command: docker compose ps
-      - run:
-          name: docker compose log
-          command: docker compose logs
+          # command: docker compose --file docker-compose.prod.yml up --build
+          command: docker compose down
+      # - run:
+      #     name: docker compose ps
+      #     command: docker compose ps
+      # - run:
+      #     name: docker compose log
+      #     command: docker compose logs
 
 workflows:
   version: 2
@@ -98,6 +99,6 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: main
+          # filters:
+          #   branches:
+          #     only: main
